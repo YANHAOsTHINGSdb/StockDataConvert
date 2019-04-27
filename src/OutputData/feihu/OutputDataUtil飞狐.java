@@ -79,11 +79,11 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		i游标 = outputData(outputData最终, output,i游标);
 
 		// char stockName[];	// size=12 SZ002067空空
-		output = convertChartoByte(inputDataArray.getStockName());
+		output = convertChartoByte(inputDataArray.getStockChName());
 		i游标 = outputData(outputData最终, output,i游标);
 
 		// char stockChName[];	// size=12 景兴纸业
-		output = convertChartoByte(inputDataArray.getStockChName());
+		output = convertGB2312ChartoByte(inputDataArray.getStockName());
 		i游标 = outputData(outputData最终, output,i游标);
 
 		// int dataSize;		// 日线个数：00000001
@@ -124,12 +124,6 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 
 		return outputData最终;
 	}
-
-
-
-
-
-
 
 	private int outputData(byte[] outputData最终, byte[] output, int i游标) {
 		for(byte out : output) {

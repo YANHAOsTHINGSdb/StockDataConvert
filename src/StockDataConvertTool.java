@@ -1,10 +1,11 @@
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 
 import org.apache.commons.io.FilenameUtils;
@@ -87,8 +88,8 @@ public class StockDataConvertTool {
 	    try{
 	        File file = new File(inputFileFullPathName);
 	        if (checkBeforeReadfile(file)){
-	          BufferedReader br = new BufferedReader(new FileReader(file));
-
+	          //BufferedReader br = new BufferedReader(new FileReader(file));
+	          BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"GB2312"));
 	          String str;
 	          while((str = br.readLine()) != null){
 	            System.out.println(str);

@@ -39,6 +39,20 @@ public class OutputDataUtil爸爸 {
 		return char倒叙(inputData);
 	}
 
+	protected static byte[] convertGB2312ChartoByte(char[] stockName) {
+		ByteBuffer buffer = ByteBuffer.allocate(12);
+		byte[] result = null;
+			try {
+				result = new String(stockName).getBytes("GB2312");
+			} catch (UnsupportedEncodingException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+
+		buffer.put(result);
+		return buffer.array();
+	}
+
 	// java的二进制存储是倒着的
 	// 所以要想把东西原封不动的转移给C语言的程序，
 	// 就需要倒叙输出。
@@ -64,12 +78,16 @@ public class OutputDataUtil爸爸 {
 	// 就需要倒叙输出。
 	static private byte[] char倒叙(char[] inputData) {
 		ByteBuffer buffer = ByteBuffer.allocate(12);
-		//buffer.order(ByteOrder.LITTLE_ENDIAN);
-		try {
-			buffer.put(new String(inputData).getBytes("GB2312"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		byte[] result = new String(inputData).getBytes();
+		if(result.length>12) {
+			try {
+				result = new String(inputData).getBytes("GB2312");
+			} catch (UnsupportedEncodingException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}
+		buffer.put(result);
 		return buffer.array();
 	}
 
