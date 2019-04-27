@@ -11,6 +11,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import OutputData.OutputDataUtil;
+import OutputData.feihu.OutputDataUtil飞狐;
+import OutputData.qianlong.OutputDataUtil钱龙;
+
 public class StockDataConvertTool {
 	// 日期！，每次只取得一个日期的文件。
 	String sDate = null;
@@ -21,6 +25,20 @@ public class StockDataConvertTool {
 					PROPERTY.取得sh出力目录(),
 					PROPERTY.取得sz出力目录()
 			};
+	String[] s数据格式扩展名 =
+			new String[] {
+					"txt", // 0:未知
+					"DAY", // 1:钱龙
+					"QDA", // 2:飞狐
+					"day", // 3:通达信
+					"DAD"  // 4:分析家
+			};
+	/**
+	 * 1=钱龙
+	 * 2=飞狐
+	 */
+	static String sOutPutDataType =PROPERTY.取得出力数据格式();
+
 //	String[] sStockPath =
 //			new String[] {
 //					"/Applications/Eclipse_2018-12.app/Contents/workspace/StockDataConvert/data/output/sh",
@@ -101,7 +119,10 @@ public class StockDataConvertTool {
 //        }
 //        return filename;
 //    }
-
+	/**
+	 *
+	 * @param str
+	 */
 	private void 解析每一行的数据(String str) {
 		// 把数据分解成数组，
 		String[] s = str.split("\\t");
@@ -114,17 +135,25 @@ public class StockDataConvertTool {
 			// 输出实体文件
 
 			// 先取得股票代号，做成文件名
-			String[] sData = new String[] {this.sDate, s[2],s[3],s[4],s[5],s[6],s[7]};
-			write2(取得市场路径(s[0]).concat("/").concat(s[0]).concat(".DAY"), sData);
+			String[] sData = new String[] {this.sDate, s[2],s[3],s[4],s[5],s[6],s[7],s[0],s[1]};
+			write2(取得市场路径(s[0]).concat("/").concat(s[0]).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])), sData);
 		}
 	}
-
+	/**
+	 *
+	 * @param str
+	 */
 	private String 取得市场路径(String s股票代号) {
 		if(s股票代号.charAt(0)=='6') {
 			return sStockPath[0];
 		}
 		return sStockPath[1];
 	}
+
+	/**
+	 *
+	 * @param str
+	 */
 	private boolean 判断是不是实际的数据(String[] s) {
 		// 如果第一项不为数字，则是标题行，需要掠过
 		// 下例的时候也会报错：
@@ -144,6 +173,8 @@ public class StockDataConvertTool {
 		}
 		return false;
 	}
+
+
 	private static boolean checkBeforeReadfile(File file) {
 		if (file.exists()) {
 			if (file.isFile() && file.canRead()) {
@@ -161,7 +192,7 @@ public class StockDataConvertTool {
 			}
 			FileOutputStream fos = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.write(OutputDataUtil.getOutputData("20060915","6098","7260","6098","7059","319796","487649"));
+			oos.write(OutputDataUtil钱龙.getOutputData("20060915","6098","7260","6098","7059","319796","487649"));
 			System.out.println("over");
 			oos.close();
 			fos.close();
@@ -179,6 +210,16 @@ public class StockDataConvertTool {
 		//ByteArrayOutputStream byteArrayOutputStream = null;
 		DataOutputStream dataOutputStream = null;
 
+		OutputDataUtil outputDataUtil=null;
+		switch(sOutPutDataType) {
+		case "1" : // 钱龙格式数据分析
+			outputDataUtil = new OutputDataUtil钱龙();
+			break;
+		case "2" : // 飞狐格式数据分析
+			outputDataUtil = new OutputDataUtil飞狐();
+			break;
+		}
+
 	      try{
 
 	    	  FileOutputStream fos = new FileOutputStream(sFileName);
@@ -190,7 +231,7 @@ public class StockDataConvertTool {
 	    	  dataOutputStream = new DataOutputStream(fos);
 
 	          // write to the stream from integer array
-	    	  dataOutputStream.write(OutputDataUtil.getOutputData(sData));
+	    	  dataOutputStream.write(outputDataUtil.getOutputData(sData));
 
 	          // flushes bytes to underlying output stream
 	    	  dataOutputStream.flush();

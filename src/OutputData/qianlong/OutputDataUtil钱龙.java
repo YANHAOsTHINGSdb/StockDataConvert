@@ -1,7 +1,12 @@
+package OutputData.qianlong;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class OutputDataUtil {
+import OutputData.OutputDataUtil;
+import OutputData.OutputDataUtil爸爸;
+
+public class OutputDataUtil钱龙 extends OutputDataUtil爸爸 implements OutputDataUtil {
 
 	static public byte[] getOutputData(String string1, String string2, String string3, String string4, String string5,
 			String string6, String string7) {
@@ -20,7 +25,7 @@ public class OutputDataUtil {
 		return createOutputData(inputDataArray);
 	}
 
-	static public byte[] getOutputData(String[] datas) {
+	public byte[] getOutputData(String[] datas) {
 		//--------------------------
 		// 先将读入的字符串转成int的数组
 		//--------------------------
@@ -45,7 +50,7 @@ public class OutputDataUtil {
 		byte[] outputData = new byte[40];
 		int i = 0;
 		for(int inputData : inputDataArray) {
-			byte[] output = 倒叙(inputData);
+			byte[] output = convertInttoByte(inputData);
 			for(byte out : output) {
 				outputData[i]=out;
 				i++;

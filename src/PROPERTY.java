@@ -62,4 +62,9 @@ public class PROPERTY {
 	public static String 取得sz出力目录() {
 		return 取得指定信息("sz出力目录");
 	}
+
+	public static String 取得出力数据格式() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 取得指定信息("出力数据格式");
+	}
 }
