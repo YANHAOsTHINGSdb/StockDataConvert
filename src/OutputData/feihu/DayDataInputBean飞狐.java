@@ -3,7 +3,7 @@ package OutputData.feihu;
 import lombok.Data;
 
 @Data
-public class DayDataBean飞狐  implements java.io.Serializable {
+public class DayDataInputBean飞狐  implements java.io.Serializable {
 	int header;			// header：ffffffe2
 	int type;			// type：00000101
 	int stockCount;		// 股票数：00000001

@@ -21,7 +21,7 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 //		return createOutputData(inputDataArray);
 //	}
 
-	public byte[] getOutputData(String[] datas) {
+	public byte[] getOutputData(String[] datas, DayDataOutputBean dayDataOutputBean飞狐) {
 		//--------------------------
 		// 先将读入的字符串转成int的数组
 		//--------------------------
@@ -34,7 +34,7 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 //			,Integer.parseInt(datas[5])
 //			,Integer.parseInt(datas[6])
 //		};
-		DayDataBean飞狐 dayDataBean飞狐 = new DayDataBean飞狐();
+		DayDataInputBean飞狐 dayDataBean飞狐 = new DayDataInputBean飞狐();
 		dayDataBean飞狐.setF开盘(Float.parseFloat(datas[1]));
 		dayDataBean飞狐.setF最高(Float.parseFloat(datas[2]));
 		dayDataBean飞狐.setF最低(Float.parseFloat(datas[3]));
@@ -50,12 +50,16 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		dayDataBean飞狐.setStockName(datas[8].toCharArray());
 		dayDataBean飞狐.setType(0x00000101);
 		dayDataBean飞狐.setUTCtime(getUTCtime(datas[0]));
-		return createOutputData(dayDataBean飞狐);
+		return createOutputData(dayDataBean飞狐, dayDataOutputBean飞狐);
 	}
 
 
-
-	private byte[] createOutputData(DayDataBean飞狐 inputDataArray) {
+	/**
+	 *
+	 * @param inputDataArray
+	 * @return
+	 */
+	private byte[] createOutputData(DayDataInputBean飞狐 inputDataArray, DayDataOutputBean dayDataOutputBean飞狐) {
 		//--------------------------
 		// 把每个int转成byte
 		// 将转成byte做倒序
@@ -68,27 +72,33 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		// int header;			// header：ffffffe2
 		//output = 倒叙(inputDataArray.getHeader());
 		output = convertInttoByte(inputDataArray.getHeader());
-		i游标 = outputData(outputData最终, output,i游标);
+		dayDataOutputBean飞狐.setHeader(output);
+//		i游标 = outputData(outputData最终, output,i游标);
 
 		// int type;			// type：00000101
 		output = convertInttoByte(inputDataArray.getType());
-		i游标 = outputData(outputData最终, output,i游标);
+		dayDataOutputBean飞狐.setType(output);
+//		i游标 = outputData(outputData最终, output,i游标);
 
 		// int stockCount;		// 股票数：00000001
 		output = convertInttoByte(inputDataArray.getStockCount());
-		i游标 = outputData(outputData最终, output,i游标);
+		dayDataOutputBean飞狐.setDataSize(output);
+//		i游标 = outputData(outputData最终, output,i游标);
 
 		// char stockName[];	// size=12 SZ002067空空
 		output = convertChartoByte(inputDataArray.getStockChName());
-		i游标 = outputData(outputData最终, output,i游标);
+		dayDataOutputBean飞狐.setStockName(output);
+//		i游标 = outputData(outputData最终, output,i游标);
 
 		// char stockChName[];	// size=12 景兴纸业
 		output = convertGB2312ChartoByte(inputDataArray.getStockName());
-		i游标 = outputData(outputData最终, output,i游标);
+		dayDataOutputBean飞狐.setStockChName(output);
+//		i游标 = outputData(outputData最终, output,i游标);
 
 		// int dataSize;		// 日线个数：00000001
 		output = convertInttoByte(inputDataArray.getDataSize());
-		i游标 = outputData(outputData最终, output,i游标);
+		dayDataOutputBean飞狐.setDataSize(output);
+//		i游标 = outputData(outputData最终, output,i游标);
 
 		// int UTCtime;		// UTC time：5cc24a00
 		output = convertInttoByte(inputDataArray.getUTCtime());
@@ -132,6 +142,7 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		}
 		return i游标;
 	}
+
 
 
 

@@ -5,6 +5,7 @@ import java.nio.ByteOrder;
 
 import OutputData.OutputDataUtil;
 import OutputData.OutputDataUtil爸爸;
+import OutputData.feihu.DayDataOutputBean;
 
 public class OutputDataUtil钱龙 extends OutputDataUtil爸爸 implements OutputDataUtil {
 
@@ -25,7 +26,7 @@ public class OutputDataUtil钱龙 extends OutputDataUtil爸爸 implements Output
 		return createOutputData(inputDataArray);
 	}
 
-	public byte[] getOutputData(String[] datas) {
+	public byte[] getOutputData(String[] datas, DayDataOutputBean dayDataOutputBean飞狐) {
 		//--------------------------
 		// 先将读入的字符串转成int的数组
 		//--------------------------

@@ -8,6 +8,9 @@ sz出力目录=C:\\Users\beihai\\Desktop\\tool\\sz
 #------------------------------------------------
 #以下位网络数据工具专用
 #------------------------------------------------
+#飞狐用导入数据文件名
+historyDataForFeihuSoftWare=
+
 #下载数据保存路径
 downloadSavedPath=download
 

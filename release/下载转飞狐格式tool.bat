@@ -9,7 +9,7 @@ rem chcp 936
 rem -------------------------------------------------------------
 rem		首先读取Property文件里的信息
 rem -------------------------------------------------------------
-for /f "delims== tokens=1,2" %%G in (StockDataConvert.property) do ( 
+for /f "delims== tokens=1,2" %%G in (StockDataConvert.property) do (
 
 	set %%G=%%H
 	rem echo %%G%
@@ -61,9 +61,9 @@ if "%sLocalPath%"=="" (
 	exit 0
 ) else (
 	rem 删除本地路径下的所有文件，确保下载无障碍
-rem	if exist %sLocalPath% ( 
-rem		rd /s /Q %sLocalPath% 
-rem	) 
+rem	if exist %sLocalPath% (
+rem		rd /s /Q %sLocalPath%
+rem	)
 	if not exist %sLocalPath% (
 		md %sLocalPath%
 	)
@@ -85,13 +85,13 @@ rem 如果没有输入【上海股票代码文件地址】，就不下载上海�
 if "%sSH_CodeListPath%"=="" (
 	echo 因为没有输入【上海股票代码文件地址】，所以就不下载上海股票历史数据了
 ) else (
-	rem for I in (%sSH_CodeListPath%) 
+	rem for I in (%sSH_CodeListPath%)
 	if exist %sSZ_CodeListPath% (
 		for /f "delims=" %%I in (%sSH_CodeListPath%) do (
 			wget --user-agent="Mozilla/5.0 （Windows; U; Windows NT 6.1; en-US） AppleWebKit/534.16 （KHTML， like Gecko） Chrome/10.0.648.204 Safari/534.1#d6" -nv --tries=5 --timeout=5 -O "%sLocalPath%\%%I.csv" "%sURL%?code=0%%I&start=%sDownloadStartDate%&end=%sDownloadEndDate%&fields=TOPEN;HIGH;LOW;TCLOSE;VOTURNOVER;VATURNOVER"
 
-			rem 1 second
-			ping 192.0.2.2 -n 1 -w 1000 > nul
+			rem 1000=1 second
+			ping 192.0.2.2 -n 1 -w 10 > nul
 		)
 	) else (
 		echo 【上海股票代码文件不存在】
@@ -106,9 +106,9 @@ if "%sSZ_CodeListPath%"=="" (
 	if exist %sSZ_CodeListPath% (
 		for /f "delims=" %%I in (%sSZ_CodeListPath%) do (
 			wget --user-agent="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (.NET CLR 3.5.30729)" -nv --tries=5 --timeout=5 -O "%sLocalPath%\%%I.csv" "%sURL%?code=1%%I&start=%sDownloadStartDate%&end=%sDownloadEndDate%&fields=TOPEN;HIGH;LOW;TCLOSE;VOTURNOVER;VATURNOVER"
-			
-			rem 1 second
-			ping 192.0.2.2 -n 1 -w 1000 > nul
+
+			rem 1000=1 second
+			ping 192.0.2.2 -n 1 -w 10 > nul
 		)
 	) else (
 		echo 【深圳股票代码文件不存在】
