@@ -141,6 +141,7 @@ public class OutputDataUtil爸爸 {
 		// 取得所有参数的实际大小的总和
 		int i所有参数的实际大小的总和=0;
 		for(byte[]对象数组 : 合并对象数组 )  {
+			if(对象数组 == null || 对象数组.length == 0) continue;
 			i所有参数的实际大小的总和 += 对象数组.length;
 		}
 		byte[] outputToByte = new byte[i所有参数的实际大小的总和];
@@ -149,7 +150,7 @@ public class OutputDataUtil爸爸 {
 		int i已经加入的数据大小=0;
 		for(byte[]对象数组 : 合并对象数组 )  {
 			// 如果【对象数组】没有数据就忽略。
-			if(对象数组.length == 0) continue;
+			if(对象数组 == null || 对象数组.length == 0) continue;
 
 			// 处理内容：将数组1加到数组2
 			//-----------------------------------------------------------

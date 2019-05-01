@@ -39,7 +39,7 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		dayDataBean飞狐.setF最高(Float.parseFloat(datas[2]));
 		dayDataBean飞狐.setF最低(Float.parseFloat(datas[3]));
 		dayDataBean飞狐.setF收盘(Float.parseFloat(datas[4]));
-		dayDataBean飞狐.setF成交量(Float.parseFloat(datas[5]));
+		dayDataBean飞狐.setF成交量(Float.parseFloat(datas[5])/100);
 		dayDataBean飞狐.setF成交金额(Float.parseFloat(datas[6]));
 
 		dayDataBean飞狐.setDataSize(0x1);
@@ -66,7 +66,7 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		// 将转成byte做倒序
 		// 最后进行重组
 		//--------------------------
-		byte[] outputData最终 = new byte[72];
+		byte[] outputData最终 = new byte[32];
 		byte[] output = null;
 		int i游标 = 0;
 

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class StockData爸爸 {
@@ -44,13 +45,20 @@ public class StockData爸爸 {
 		// 603982	Ȫ������	--  	--  	--  	0.00	0	0
 		// 所以要确保所有的数据都是数值的时候才放行
 		if(
-				NumberUtils.isDigits(s[0])
-				&& s[2].matches("[-+]?[0-9]*\\.?[0-9]+")
+				NumberUtils.isDigits(s[0].replace("-","").replace("/",""))
 				&& s[3].matches("[-+]?[0-9]*\\.?[0-9]+")
 				&& s[4].matches("[-+]?[0-9]*\\.?[0-9]+")
 				&& s[5].matches("[-+]?[0-9]*\\.?[0-9]+")
-				&& NumberUtils.isDigits(s[6])
-				&& NumberUtils.isDigits(s[7])
+				&& s[6].matches("[-+]?[0-9]*\\.?[0-9]+")
+				&& s[7].matches("[-+]?[0-9]*\\.?[0-9]+")
+				&& s[8].matches("[-+]?[0-9]*\\.?[0-9]+")
+
+//				&& NumberUtils.isDigits(s[3])
+//				&& NumberUtils.isDigits(s[4])
+//				&& NumberUtils.isDigits(s[5])
+//				&& NumberUtils.isDigits(s[6])
+//				&& NumberUtils.isDigits(s[7])
+//				&& NumberUtils.isDigits(s[8])
 
 		) {
 			return true;
@@ -84,6 +92,14 @@ public class StockData爸爸 {
 	}
 
 	protected void write(String sFileName,  byte[] byteData) {
+		
+		// 
+		File file = new File(FilenameUtils.getFullPath(sFileName));
+		
+		if(!file.exists()) {
+			file.mkdir();
+		}
+		
 		//ByteArrayOutputStream byteArrayOutputStream = null;
 		DataOutputStream dataOutputStream = null;
 	      try{

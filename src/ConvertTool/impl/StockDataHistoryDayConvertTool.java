@@ -70,10 +70,14 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 			if(header == null)header = dayDataOutputBean飞狐.getHeader();
 			if(type == null)type = dayDataOutputBean飞狐.getType();
 
-			// 整合出力数据
-			resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一只股票);
+
 			// 股票个数加1
-			i股票数 ++;
+			if(resultByte深沪股票 != null ) {
+				// 整合出力数据
+				resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一只股票);
+				
+				i股票数 ++;
+			}
 		}
 		if(股票数 == null)股票数 = OutputDataUtil爸爸.convertInttoBytePublic(i股票数);
 
@@ -82,7 +86,7 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 
 		String outFileName = PROPERTY.取得飞狐用导入数据文件名();
 		outFileName = StringUtils.isEmpty(outFileName)?"historyDataForFeihuSoftWare": outFileName;
-		write(PROPERTY.取得sh出力目录().concat(outFileName).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])),outputTofile);
+		write(PROPERTY.取得sh出力目录().concat("\\").concat(outFileName).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])),outputTofile);
 	}
 
 	/**
@@ -124,9 +128,12 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 	            if(股票代码 == null)股票代码 = dayDataOutputBean飞狐.getStockName();
 	            if(股票中文名 == null)股票中文名 = dayDataOutputBean飞狐.getStockChName();
 
-	            // 日线数据合并
-	            resultByte一个文件 = OutputDataUtil爸爸.数组合并(resultByte一个文件, resultByteO一行);
-	            i日线个数++;
+
+	            if (resultByteO一行 != null) {
+		            // 日线数据合并
+		            resultByte一个文件 = OutputDataUtil爸爸.数组合并(resultByte一个文件, resultByteO一行);
+	            	i日线个数++;
+	            }
 	          }
 	          // 取得【日线个数】的byte值
 	          if(日线个数 == null)日线个数 = OutputDataUtil爸爸.convertInttoBytePublic(i日线个数);
@@ -167,7 +174,7 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 						|------收
 		=======================================*/
 		// 把数据分解成数组，
-		String[] s = str.split("\\t");
+		String[] s = str.split(",");
 		if (s.length < 8) return null;
 		// 判断是不是实际的数据
 		if(判断是不是实际的数据(s)) {
@@ -178,9 +185,25 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 
 			// 先取得股票代号，做成文件名
 			// 日期	股票代码	名称	开盘价	最高价	收盘价	最低价	收盘价	成交量	成交金额
-			String[] sData = new String[] {s[0].replace("-","").replace("/",""), s[2],s[3],s[4],s[5],s[6],s[7],s[0],s[1]};
-			return getByte(sData,dayDataOutputBean飞狐);
+
+			/**
+				0 UTC
+				1 K
+				2 G
+				3 L
+				4 E
+				5 C
+				6 K
+				7 '600734
+				8 jingxingzhiye
+			 */
+			String[] sData = new String[] {s[0].replace("-","").replace("/",""), s[3],s[4],s[5],s[6],s[7],s[8],s[1].replace("'",""),s[2]};
+			
+			// 
+			return getByte(sData, dayDataOutputBean飞狐);
+			
 		}
+		
 		return null;
 
 
