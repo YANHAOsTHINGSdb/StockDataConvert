@@ -7,8 +7,6 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import com.mycompany.common.PROPERTY;
-
 public class StockData爸爸 {
 
 	String[] s数据格式扩展名 =

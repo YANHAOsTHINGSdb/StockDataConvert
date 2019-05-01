@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.mycompany.common.PROPERTY;
-
 import OutputData.OutputDataUtil;
 import OutputData.feihu.OutputDataUtil飞狐;
 import OutputData.qianlong.OutputDataUtil钱龙;

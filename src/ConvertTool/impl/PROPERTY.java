@@ -65,7 +65,14 @@ public class PROPERTY {
 	}
 
 	public static String 取得出力数据格式() {
-		// TODO 自動生成されたメソッド・スタブ
 		return 取得指定信息("出力数据格式");
+	}
+
+	public static String 取得下载数据保存路径() {
+		return 取得指定信息("downloadSavedPath");
+	}
+
+	public static String 取得飞狐用导入数据文件名() {
+		return 取得指定信息("historyDataForFeihuSoftWare");
 	}
 }

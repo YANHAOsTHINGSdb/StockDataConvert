@@ -11,8 +11,6 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.mycompany.common.PROPERTY;
-
 import OutputData.OutputDataUtil;
 import OutputData.OutputDataUtil爸爸;
 import OutputData.feihu.DayDataOutputBean;

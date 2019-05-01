@@ -1,7 +1,6 @@
 import org.apache.commons.lang3.StringUtils;
 
-import com.mycompany.common.PROPERTY;
-
+import ConvertTool.impl.PROPERTY;
 import ConvertTool.impl.StockDataHistoryDayConvertTool;
 import ConvertTool.impl.StockDataOneDayConvertTool;
 
