@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.mycompany.common.PROPERTY;
 
 import OutputData.OutputDataUtil;
+import OutputData.OutputDataUtil爸爸;
 import OutputData.feihu.DayDataOutputBean;
 import OutputData.feihu.OutputDataUtil飞狐;
 import OutputData.qianlong.OutputDataUtil钱龙;
@@ -42,8 +43,13 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 		// 进行分析，如果OK，就直接输出文件。
 
 		List<File> fileList = (List<File>)FileUtils.listFiles(new File(inputFileFolderName),null,false);//列出该目录下的所有文件，不递归
+		byte[] outputTofile = new byte[0];
 		byte[] resultByte深沪股票 = new byte[0];
 
+		byte[] header = null;
+		byte[] type = null;
+		byte[] 股票数 = null;
+		int i股票数 =0;
 		for(File file : fileList) {
 			/*=======================================
 						|-----header				⬅️
@@ -57,15 +63,28 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 										|------低
 										|------收
 			=======================================*/
-			byte[] header = null;
-			byte[] type = null;
-			byte[] 股票数 = null;
-			byte[] resultByteO一只股票 = 将入力文件的内容转成Byte (file);
-			resultByte深沪股票 = new byte[resultByteO一只股票.length + resultByte深沪股票.length];
+
+			// 解析文件返回出力内容
+			DayDataOutputBean dayDataOutputBean飞狐 = new DayDataOutputBean();
+			byte[] resultByteO一只股票 = 将入力文件的内容转成Byte (file, dayDataOutputBean飞狐);
+
+			// 【dayDataOutputBean飞狐】是从子函数里返回的值
+			if(header == null)header = dayDataOutputBean飞狐.getHeader();
+			if(type == null)type = dayDataOutputBean飞狐.getType();
+
+			// 整合出力数据
+			resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一只股票);
+			// 股票个数加1
+			i股票数 ++;
 		}
+		if(股票数 == null)股票数 = OutputDataUtil爸爸.convertInttoBytePublic(i股票数);
+
+		// 最终整合
+		outputTofile = OutputDataUtil爸爸.数组合并(header,type,股票数,resultByte深沪股票);
+
 		String outFileName = PROPERTY.取得飞狐用导入数据文件名();
 		outFileName = StringUtils.isEmpty(outFileName)?"historyDataForFeihuSoftWare": outFileName;
-		write(PROPERTY.取得sh出力目录().concat(outFileName).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])),resultByte深沪股票);
+		write(PROPERTY.取得sh出力目录().concat(outFileName).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])),outputTofile);
 	}
 
 	/**
@@ -73,7 +92,7 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 	 * @param file
 	 * @return
 	 */
-	byte[] 将入力文件的内容转成Byte (File file) {
+	byte[] 将入力文件的内容转成Byte (File file, DayDataOutputBean dayDataOutputBean飞狐) {
 		/*=======================================
 		|-----header			️
 		|-----type
@@ -91,24 +110,34 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 		byte[] 股票中文名 = null;
 		byte[] 日线个数 = null;
 		int i日线个数 = 0;
-		DayDataOutputBean dayDataOutputBean飞狐 = new DayDataOutputBean();
+
 	    try{
 	        if (checkBeforeReadfile(file)){
-	          //BufferedReader br = new BufferedReader(new FileReader(file));
+		      // 出现乱码的对治方案
+	          // BufferedReader br = new BufferedReader(new FileReader(file));
 	          BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"GB2312"));
 	          String str;
 	          while((str = br.readLine()) != null){
 	            System.out.println(str);
-
+	            // 解析每一行返回出力内容
 	            byte[] resultByteO一行 = 解析每一行的数据(str, dayDataOutputBean飞狐);
-	            股票代码 = dayDataOutputBean飞狐.getStockName();
-	            股票中文名 = dayDataOutputBean飞狐.getStockChName();
-	            // 没有做整合处理
-	            resultByte一个文件 = new byte[resultByteO一行.length + resultByte一个文件.length];
+
+	            // 【dayDataOutputBean飞狐】是从子函数里返回的值
+	            if(股票代码 == null)股票代码 = dayDataOutputBean飞狐.getStockName();
+	            if(股票中文名 == null)股票中文名 = dayDataOutputBean飞狐.getStockChName();
+
+	            // 日线数据合并
+	            resultByte一个文件 = OutputDataUtil爸爸.数组合并(resultByte一个文件, resultByteO一行);
 	            i日线个数++;
 	          }
-	          dayDataOutputBean飞狐.setDataSize(日线个数);
+	          // 取得【日线个数】的byte值
+	          if(日线个数 == null)日线个数 = OutputDataUtil爸爸.convertInttoBytePublic(i日线个数);
+
+	          // 最终整合
+	          resultByte一个文件 = OutputDataUtil爸爸.数组合并(股票代码, 股票中文名, 日线个数, resultByte一个文件);
+
 	          br.close();
+
 	        }else{
 	          System.out.println("ファイルが見つからないか開けません");
 	        }

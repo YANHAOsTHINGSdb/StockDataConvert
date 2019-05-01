@@ -30,6 +30,9 @@ public class OutputDataUtil爸爸 {
 	protected static byte[] convertInttoByte(int inputData) {
 		return int倒叙(inputData);
 	}
+	public static byte[] convertInttoBytePublic(int inputData) {
+		return convertInttoByte(inputData);
+	}
 	/**
 	 *
 	 * @param inputData
@@ -130,4 +133,38 @@ public class OutputDataUtil爸爸 {
 		return sStockCode[1];
 	}
 
+	public static byte[] 数组合并(byte[]... 合并对象数组) {
+		//------------------------------
+		// 本函数的目的，把参数按顺序的拼接
+		//------------------------------
+
+		// 取得所有参数的实际大小的总和
+		int i所有参数的实际大小的总和=0;
+		for(byte[]对象数组 : 合并对象数组 )  {
+			i所有参数的实际大小的总和 += 对象数组.length;
+		}
+		byte[] outputToByte = new byte[i所有参数的实际大小的总和];
+
+		// 然后顺次加入其中
+		int i已经加入的数据大小=0;
+		for(byte[]对象数组 : 合并对象数组 )  {
+			// 如果【对象数组】没有数据就忽略。
+			if(对象数组.length == 0) continue;
+
+			// 处理内容：将数组1加到数组2
+			//-----------------------------------------------------------
+			// 以下是System.arraycopy的入力参数说明
+			// 对象数组, 0,     outputToByte, i已经加入的数据大小, 对象数组.length
+			// 数组1
+			//          数组1的起始位置
+			//                 数组2
+			//                               数组2的起始位置
+			//                                                 数组1的数据长度
+			//-----------------------------------------------------------
+			System.arraycopy(对象数组, 0, outputToByte, i已经加入的数据大小, 对象数组.length);
+			i已经加入的数据大小 += 对象数组.length;
+		}
+
+		return outputToByte;
+	}
 }
