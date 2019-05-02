@@ -106,7 +106,7 @@ public class OutputDataUtil爸爸 {
 		//--------------------
 		Date date = null;
 		try {
-			date = new SimpleDateFormat("yyyyMMdd").parse(yyyyMMdd);
+			date = new SimpleDateFormat("yyyyMMdd hh:mm:ss").parse(yyyyMMdd);
 		} catch (ParseException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

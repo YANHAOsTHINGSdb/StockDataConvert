@@ -49,7 +49,7 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		dayDataBean飞狐.setStockCount(0x1);
 		dayDataBean飞狐.setStockName(datas[8].toCharArray());
 		dayDataBean飞狐.setType(0x00000101);
-		dayDataBean飞狐.setUTCtime(getUTCtime(datas[0]));
+		dayDataBean飞狐.setUTCtime(getUTCtime(datas[0].concat(" 09:00:00")));
 
 		return createOutputData(dayDataBean飞狐, dayDataOutputBean飞狐);
 	}

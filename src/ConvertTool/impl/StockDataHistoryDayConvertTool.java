@@ -131,7 +131,7 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 
 	            if (resultByteO一行 != null) {
 		            // 日线数据合并
-		            resultByte一个文件 = OutputDataUtil爸爸.数组合并(resultByte一个文件, resultByteO一行);
+		            resultByte一个文件 = OutputDataUtil爸爸.数组合并(resultByteO一行, resultByte一个文件);
 	            	i日线个数++;
 	            }
 	          }

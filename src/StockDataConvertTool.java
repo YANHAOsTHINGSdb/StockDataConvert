@@ -11,7 +11,7 @@ public class StockDataConvertTool {
 		String s方案 = null;
 		if(args.length==0 || StringUtils.isEmpty(args[0])) {
 			// 如果没有入力值，就走【0】方案
-			s方案 = "0";
+			s方案 = "1";
 		}else {
 			s方案 = args[0];
 		}
