@@ -72,15 +72,17 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 
 
 			// 股票个数加1
-			if(resultByte深沪股票 != null ) {
+			if(resultByteO一只股票 != null && resultByteO一只股票.length > 1 ) {
 				// 整合出力数据
 				resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一只股票);
 				
 				i股票数 ++;
 			}
 		}
+		if(i股票数 == 0) return; // 如果股票数为零，就退出
 		if(股票数 == null)股票数 = OutputDataUtil爸爸.convertInttoBytePublic(i股票数);
-
+		
+		
 		// 最终整合
 		outputTofile = OutputDataUtil爸爸.数组合并(header,type,股票数,resultByte深沪股票);
 
@@ -139,8 +141,11 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 	          if(日线个数 == null)日线个数 = OutputDataUtil爸爸.convertInttoBytePublic(i日线个数);
 
 	          // 最终整合
-	          resultByte一个文件 = OutputDataUtil爸爸.数组合并(股票代码, 股票中文名, 日线个数, resultByte一个文件);
-
+	          if (resultByte一个文件 != null && resultByte一个文件.length > 1) {
+	        	  resultByte一个文件 = OutputDataUtil爸爸.数组合并(股票代码, 股票中文名, 日线个数, resultByte一个文件);
+	          }else {
+	        	  resultByte一个文件 = null;
+	          }
 	          br.close();
 
 	        }else{
