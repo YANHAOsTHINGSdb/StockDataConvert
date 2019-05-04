@@ -70,19 +70,18 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 			if(header == null)header = dayDataOutputBean飞狐.getHeader();
 			if(type == null)type = dayDataOutputBean飞狐.getType();
 
-
 			// 股票个数加1
 			if(resultByteO一只股票 != null && resultByteO一只股票.length > 1 ) {
 				// 整合出力数据
 				resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一只股票);
-				
+
 				i股票数 ++;
 			}
 		}
 		if(i股票数 == 0) return; // 如果股票数为零，就退出
 		if(股票数 == null)股票数 = OutputDataUtil爸爸.convertInttoBytePublic(i股票数);
-		
-		
+
+
 		// 最终整合
 		outputTofile = OutputDataUtil爸爸.数组合并(header,type,股票数,resultByte深沪股票);
 
@@ -127,8 +126,9 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 	            byte[] resultByteO一行 = 解析每一行的数据(str, dayDataOutputBean飞狐);
 
 	            // 【dayDataOutputBean飞狐】是从子函数里返回的值
-	            if(股票代码 == null)股票代码 = dayDataOutputBean飞狐.getStockName();
-	            if(股票中文名 == null)股票中文名 = dayDataOutputBean飞狐.getStockChName();
+	            // 采用最后出现的股票名称
+	            if(dayDataOutputBean飞狐.getStockName() != null)股票代码 = dayDataOutputBean飞狐.getStockName();
+	            if(dayDataOutputBean飞狐.getStockChName() != null)股票中文名 = dayDataOutputBean飞狐.getStockChName();
 
 
 	            if (resultByteO一行 != null) {
@@ -203,12 +203,12 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 				8 jingxingzhiye
 			 */
 			String[] sData = new String[] {s[0].replace("-","").replace("/",""), s[3],s[4],s[5],s[6],s[7],s[8],s[1].replace("'",""),s[2]};
-			
-			// 
+
+			//
 			return getByte(sData, dayDataOutputBean飞狐);
-			
+
 		}
-		
+
 		return null;
 
 

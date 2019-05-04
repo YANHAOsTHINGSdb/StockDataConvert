@@ -46,12 +46,13 @@ public class StockData爸爸 {
 		// 所以要确保所有的数据都是数值的时候才放行
 		if(
 				NumberUtils.isDigits(s[0].replace("-","").replace("/",""))
-				&& s[3].matches("[-+]?[0-9]*\\.?[0-9]+")
-				&& s[4].matches("[-+]?[0-9]*\\.?[0-9]+")
-				&& s[5].matches("[-+]?[0-9]*\\.?[0-9]+")
-				&& s[6].matches("[-+]?[0-9]*\\.?[0-9]+")
-				&& s[7].matches("[-+]?[0-9]*\\.?[0-9]+")
-				&& s[8].matches("[-+]?[0-9]*\\.?[0-9]+")
+				&& isFloat(s[3])
+				&& isFloat(s[4])
+				&& isFloat(s[5])
+				&& isFloat(s[6])
+				&& isFloat(s[7])
+				&& isFloat(s[8])
+				&& !isZore(s[7])
 
 //				&& NumberUtils.isDigits(s[3])
 //				&& NumberUtils.isDigits(s[4])
@@ -64,6 +65,33 @@ public class StockData爸爸 {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * 0.0的值的数据不能直接导入，需要过滤掉 2019-5-4
+	 * @param str
+	 * @return
+	 */
+	private boolean isZore(String str) {
+		if(Float.parseFloat(str) == 0.0) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 0.0000000001+11 通配符模式不能解析
+	 * 只能用Float.parseFloat(str)
+	 * @param str
+	 * @return
+	 */
+	private boolean isFloat(String str) {
+		//check if float
+	    try{
+	        Float.parseFloat(str);
+	    }catch(NumberFormatException e){
+	    	return false;
+	    }
+		return true;
 	}
 
 	/**
@@ -92,14 +120,14 @@ public class StockData爸爸 {
 	}
 
 	protected void write(String sFileName,  byte[] byteData) {
-		
-		// 
+
+		//
 		File file = new File(FilenameUtils.getFullPath(sFileName));
-		
+
 		if(!file.exists()) {
 			file.mkdir();
 		}
-		
+
 		//ByteArrayOutputStream byteArrayOutputStream = null;
 		DataOutputStream dataOutputStream = null;
 	      try{

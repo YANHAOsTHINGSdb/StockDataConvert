@@ -98,6 +98,8 @@ if "%sSH_CodeListPath%"=="" (
 	)
 )
 
+rem 上海综合指数下载
+wget --user-agent="Mozilla/5.0 （Windows; U; Windows NT 6.1; en-US） AppleWebKit/534.16 （KHTML， like Gecko） Chrome/10.0.648.204 Safari/534.1#d6" -nv --tries=5 --timeout=5 -O "%sLocalPath%\1A0001.csv" "%sURL%?code=0000001&start=%sDownloadStartDate%&end=%sDownloadEndDate%&fields=TOPEN;HIGH;LOW;TCLOSE;VOTURNOVER;VATURNOVER"
 
 rem 如果没有输入【深圳股票代码文件地址】，就不下载深圳股票历史数据
 if "%sSZ_CodeListPath%"=="" (
