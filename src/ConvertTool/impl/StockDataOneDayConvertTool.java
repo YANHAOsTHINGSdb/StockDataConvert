@@ -11,7 +11,11 @@ import java.io.InputStreamReader;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.sun.jna.ptr.ShortByReference;
+
+import InputData.hqApiJava1;
 import OutputData.OutputDataUtil;
+import OutputData.OutputDataUtil爸爸;
 import OutputData.feihu.OutputDataUtil飞狐;
 import OutputData.qianlong.OutputDataUtil钱龙;
 
@@ -83,6 +87,24 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 	        System.out.println(e);
 	      }
 	}
+	 
+	 public void 输出到文件2() {
+
+		this.sDate = null;
+		String[] todayDatas = null;
+		// 取得最后交易日的成交数据
+		if(getTodayData(todayDatas, sDate)) {
+			// 
+			if(todayDatas == null || todayDatas.length <= 0) {return;}
+			
+	        for(String todayData:todayDatas) {
+	            System.out.println(todayData);
+	            解析每一行的数据(todayData);
+	        }
+		}
+	}
+	 
+	 
 //	/*
 //	 * Java文件操作 获取不带扩展名的文件名
 //	 *
@@ -118,7 +140,90 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 //			e.printStackTrace();
 //		}
 //	}
+	 	
+	 // 取得最后交易日的数据
+	private boolean getTodayData(String[] todayData, String sDate) {
+		byte[] Result = new byte[65535];
+		byte[] ErrInfo = new byte[256];
+		byte[] Market = {0,1};
+		byte[] Zqdm = null;
+		// 连接服务器
+		if (hqApiJava1.getConnect(PROPERTY.取得IP(), PROPERTY.取得Port(), Result ,ErrInfo)) {
+			
+			//【交易日】
+			// 招商证券北京行情	20190430	20960430
+			// 9, 50, 48, 49, 57, 48, 52, 51, 48, 
+			// 9, 50, 48, 57, 54, 48, 52, 51, 48,
+			sDate = 取得最后交易日期(Result);
+			ShortByReference Count=new ShortByReference();
+			//------------------------------------------------------------
+			//【实时数据】=最后交易日期
+			// 要取得实时数据（因为取不到K线数据，所以只能拿到实时数据）
+			//------------------------------------------------------------
+			// 0=深圳
+			byte[] 股票代码Result = new byte[65535];
+			if(hqApiJava1.getGetSecurityList((byte)0, (short)0, Count, 股票代码Result, ErrInfo)) {
+				// 根据股票的结果数，取得行情数据
+				
+				byte[] 行情数据 = 取得行情数据(0, 股票代码Result, 500);
+			}
+			// 1=上海
+			if(hqApiJava1.getGetSecurityList((byte)0, (short)0, Count, Result, ErrInfo)) {
+				// 根据股票的结果数，取得行情数据
+				byte[] 行情数据 = 取得行情数据(1, 股票代码Result, 500);
+			}
+			
+		}
+		return false;
+	}
+	
+	private byte[] 取得行情数据(int i市场代码, byte[] 股票代码Result, int 取得行情数) {
+		byte[] 取得行情数据 = null;
+		byte[] Result = new byte[65535];
+		byte[] ErrInfo = new byte[256];
+		
+		// 每500股取一次行情
+		for(int i=0 ; i < 股票代码Result.length; i=i+取得行情数) {
+			// 做成这500的市场数据
+			byte[] 市场数据 = 做成这500的市场数据(i市场代码, 取得行情数);
+			
+			// 做成这500的股票代码
+			String[] 股票代码 = 做成这500的股票代码(i市场代码, 取得行情数, i, 股票代码Result);
+			
+			// 取得行情数据
+			byte[] 行情数据 = hqApiJava1.getGetSecurityQuotes(市场数据, 股票代码, Result, ErrInfo);
+			取得行情数据 = OutputDataUtil爸爸.数组合并(取得行情数据, 行情数据);
+		}
+		return 取得行情数据;
+	}
+	
+	private String[] 做成这500的股票代码(int i市场代码, int 取得行情数, int i, byte[] 股票代码Result) {
+		// 这里记述的是怎么解析
+		// 基本的思路就是
+		// 先将【股票代码Result】分解成结构体。
+		// 然后从结构体中取得【股票代码】
+		
+		String[] 股票代码 = new String[取得行情数];
+		
+//		for(int i=0 ; i < 取得行情数; i=i+取得行情数) {
+//			股票代码[i] = new String(股票代码Result[i]).substring(0, 6);
+//		}
+		return 股票代码;
 
+	}
+	private byte[] 做成这500的市场数据(int i市场代码, int 取得行情数) {
+		byte[] 市场数据 = new byte[取得行情数];
+		for(int i=0 ; i < 取得行情数; i=i+取得行情数) {
+			市场数据[i] = (byte) i市场代码;
+		}
+		return 市场数据;
+	}
+	
+	private String 取得最后交易日期(byte[] result) {
+		// 取得最后的18个byte！
+		String s=new String(result);
+		return s.substring(s.length()-17, s.length()-9);
+	}
 		/**
 	 *
 	 * @param str

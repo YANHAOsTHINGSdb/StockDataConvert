@@ -75,4 +75,14 @@ public class PROPERTY {
 	public static String 取得飞狐用导入数据文件名() {
 		return 取得指定信息("historyDataForFeihuSoftWare");
 	}
+
+	public static String 取得IP() {
+
+		return 取得指定信息("IP");
+	}
+
+	public static int 取得Port() {
+		
+		return Integer.parseInt(取得指定信息("port"));
+	}
 }
