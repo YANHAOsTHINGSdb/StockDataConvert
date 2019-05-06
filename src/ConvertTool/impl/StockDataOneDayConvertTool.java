@@ -7,15 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.sun.jna.ptr.ShortByReference;
-
-import InputData.hqApiJava1;
 import OutputData.OutputDataUtil;
-import OutputData.OutputDataUtil爸爸;
 import OutputData.feihu.OutputDataUtil飞狐;
 import OutputData.qianlong.OutputDataUtil钱龙;
 
@@ -90,18 +88,20 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 	 
 	 public void 输出到文件2() {
 
-		this.sDate = null;
-		String[] todayDatas = null;
+		this.sDate = new String();
+		//List<String[]> todayDatas = new ArrayList<String[]>();
+		List<String> todayDatas = new ArrayList<String>();
 		// 取得最后交易日的成交数据
-		if(getTodayData(todayDatas, sDate)) {
+		//if(InputDataUtil.取得最后交易日的数据(todayDatas, sDate)) {
 			// 
-			if(todayDatas == null || todayDatas.length <= 0) {return;}
+			todayDatas.add("0	002191	4052	12.580000	13.410000	12.980000	13.800000	12.220000	14999043	-1258	591083	4542	762218816.000000	327635	263448	6	129813	12.580000	12.590000	1280	1113	12.570000	12.600000	22	112	12.530000	12.610000	93	30	12.520000	12.620000	850	178	12.510000	12.630000	4	280	3402	0	-57	187	-65	0.400000	4052");
+			if(todayDatas == null || todayDatas.size() <= 0) {return;}
 			
 	        for(String todayData:todayDatas) {
 	            System.out.println(todayData);
-	            解析每一行的数据(todayData);
+	            解析每一行的数据2(todayData);
 	        }
-		}
+		//}
 	}
 	 
 	 
@@ -140,90 +140,36 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 //			e.printStackTrace();
 //		}
 //	}
-	 	
-	 // 取得最后交易日的数据
-	private boolean getTodayData(String[] todayData, String sDate) {
-		byte[] Result = new byte[65535];
-		byte[] ErrInfo = new byte[256];
-		byte[] Market = {0,1};
-		byte[] Zqdm = null;
-		// 连接服务器
-		if (hqApiJava1.getConnect(PROPERTY.取得IP(), PROPERTY.取得Port(), Result ,ErrInfo)) {
-			
-			//【交易日】
-			// 招商证券北京行情	20190430	20960430
-			// 9, 50, 48, 49, 57, 48, 52, 51, 48, 
-			// 9, 50, 48, 57, 54, 48, 52, 51, 48,
-			sDate = 取得最后交易日期(Result);
-			ShortByReference Count=new ShortByReference();
-			//------------------------------------------------------------
-			//【实时数据】=最后交易日期
-			// 要取得实时数据（因为取不到K线数据，所以只能拿到实时数据）
-			//------------------------------------------------------------
-			// 0=深圳
-			byte[] 股票代码Result = new byte[65535];
-			if(hqApiJava1.getGetSecurityList((byte)0, (short)0, Count, 股票代码Result, ErrInfo)) {
-				// 根据股票的结果数，取得行情数据
-				
-				byte[] 行情数据 = 取得行情数据(0, 股票代码Result, 500);
-			}
-			// 1=上海
-			if(hqApiJava1.getGetSecurityList((byte)0, (short)0, Count, Result, ErrInfo)) {
-				// 根据股票的结果数，取得行情数据
-				byte[] 行情数据 = 取得行情数据(1, 股票代码Result, 500);
-			}
-			
-		}
-		return false;
-	}
-	
-	private byte[] 取得行情数据(int i市场代码, byte[] 股票代码Result, int 取得行情数) {
-		byte[] 取得行情数据 = null;
-		byte[] Result = new byte[65535];
-		byte[] ErrInfo = new byte[256];
-		
-		// 每500股取一次行情
-		for(int i=0 ; i < 股票代码Result.length; i=i+取得行情数) {
-			// 做成这500的市场数据
-			byte[] 市场数据 = 做成这500的市场数据(i市场代码, 取得行情数);
-			
-			// 做成这500的股票代码
-			String[] 股票代码 = 做成这500的股票代码(i市场代码, 取得行情数, i, 股票代码Result);
-			
-			// 取得行情数据
-			byte[] 行情数据 = hqApiJava1.getGetSecurityQuotes(市场数据, 股票代码, Result, ErrInfo);
-			取得行情数据 = OutputDataUtil爸爸.数组合并(取得行情数据, 行情数据);
-		}
-		return 取得行情数据;
-	}
-	
-	private String[] 做成这500的股票代码(int i市场代码, int 取得行情数, int i, byte[] 股票代码Result) {
-		// 这里记述的是怎么解析
-		// 基本的思路就是
-		// 先将【股票代码Result】分解成结构体。
-		// 然后从结构体中取得【股票代码】
-		
-		String[] 股票代码 = new String[取得行情数];
-		
-//		for(int i=0 ; i < 取得行情数; i=i+取得行情数) {
-//			股票代码[i] = new String(股票代码Result[i]).substring(0, 6);
-//		}
-		return 股票代码;
 
-	}
-	private byte[] 做成这500的市场数据(int i市场代码, int 取得行情数) {
-		byte[] 市场数据 = new byte[取得行情数];
-		for(int i=0 ; i < 取得行情数; i=i+取得行情数) {
-			市场数据[i] = (byte) i市场代码;
+	 public void 解析每一行的数据2(String str) {
+		// 把数据分解成数组，
+		String[] s = str.split("\\t");
+		if (s.length < 8) return;
+		// 判断是不是实际的数据
+		if(判断是不是实际的数据ForDLLData(s)) {
+			// 只有实际的数据才进行后续处理
+			// 先取得股票代号，做成文件名
+			// 再取得入力的值
+			// 输出实体文件
+
+			// 先取得股票代号，做成文件名
+			String s股票名称=s[0].equals("0")?"深证指数":"上证指数";
+			String s股票代码=s[1];
+			String s开=s[5];
+			String s高=s[6];
+			String s低=s[7];
+			String s收=s[3];
+			String s成交量=s[10];
+			String s成交额=s[12];
+			String[] sData = new String[] {this.sDate, s开,s高,s低,s收,s成交量,s成交额,s股票代码,s股票名称};
+
+
+			write2(取得市场路径2(s[0]).concat("/").concat(s[0]).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])), sData);
 		}
-		return 市场数据;
+		
 	}
 	
-	private String 取得最后交易日期(byte[] result) {
-		// 取得最后的18个byte！
-		String s=new String(result);
-		return s.substring(s.length()-17, s.length()-9);
-	}
+
 		/**
 	 *
 	 * @param str

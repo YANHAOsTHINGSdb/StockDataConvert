@@ -85,4 +85,8 @@ public class PROPERTY {
 		
 		return Integer.parseInt(取得指定信息("port"));
 	}
+
+	public static String 取得解析方案() {
+		return 取得指定信息("方案");
+	}
 }

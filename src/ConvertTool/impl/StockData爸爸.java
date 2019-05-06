@@ -66,11 +66,7 @@ public class StockData爸爸 {
 		}
 		return false;
 	}
-	/**
-	 * 0.0的值的数据不能直接导入，需要过滤掉 2019-5-4
-	 * @param str
-	 * @return
-	 */
+
 	private boolean isZore(String str) {
 		if(Float.parseFloat(str) == 0.0) {
 			return true;
@@ -78,16 +74,10 @@ public class StockData爸爸 {
 		return false;
 	}
 
-	/**
-	 * 0.0000000001+11 通配符模式不能解析
-	 * 只能用Float.parseFloat(str)
-	 * @param str
-	 * @return
-	 */
 	private boolean isFloat(String str) {
 		//check if float
 	    try{
-	        Float.parseFloat(str);
+	        Float.parseFloat(str);	        
 	    }catch(NumberFormatException e){
 	    	return false;
 	    }
@@ -104,7 +94,13 @@ public class StockData爸爸 {
 		}
 		return sStockPath[1];
 	}
-
+	
+	public String 取得市场路径2(String s股票代号) {
+		if(s股票代号.equals("1")) {
+			return sStockPath[0];
+		}
+		return sStockPath[1];
+	}
 	/**
 	 *
 	 * @param file
@@ -120,14 +116,14 @@ public class StockData爸爸 {
 	}
 
 	protected void write(String sFileName,  byte[] byteData) {
-
-		//
+		
+		// 
 		File file = new File(FilenameUtils.getFullPath(sFileName));
-
+		
 		if(!file.exists()) {
 			file.mkdir();
 		}
-
+		
 		//ByteArrayOutputStream byteArrayOutputStream = null;
 		DataOutputStream dataOutputStream = null;
 	      try{
@@ -161,5 +157,74 @@ public class StockData爸爸 {
 					e.printStackTrace();
 				}
 	       }
+	}
+	
+	protected boolean 判断是不是实际的数据ForDLLData(String[] s) {
+		/**
+			市场		0【统一替换成 0:上证指数 1:深证指数】
+			代码		1【代码】
+			活跃度	2
+			现价		3【收盘】
+			昨收	4
+			开盘		5【开盘】
+			最高	6【最高】
+			最低	7【最低】
+			时间		8
+			保留	9
+			总量		10【成交量】
+			现量		11
+			总金额	12【成交额】
+			内盘		13
+			外盘		14
+			保留	15
+			保留	16
+			买一价	17
+			卖一价	18
+			买一量	19
+			卖一量	20
+			买二价	21
+			卖二价	22
+			买二量	23
+			卖二量	24
+			买三价	25
+			卖三价	26
+			买三量	27
+			卖三量	28
+			买四价	29
+			卖四价	30
+			买四量	31
+			卖四量	32
+			买五价	33
+			卖五价	34
+			买五量	35
+			卖五量	36
+			保留	37
+			保留	38
+			保留	39
+			保留	40
+			保留	41
+			涨速		42
+			活跃度	43
+		 */
+		
+		if(		(s[0].equals("0") || s[0].equals("1"))
+				&& isFloat(s[3])
+				&& isFloat(s[5])
+				&& isFloat(s[6])
+				&& isFloat(s[7])
+				&& isFloat(s[10])
+				&& isFloat(s[12])
+
+//				&& NumberUtils.isDigits(s[3])
+//				&& NumberUtils.isDigits(s[4])
+//				&& NumberUtils.isDigits(s[5])
+//				&& NumberUtils.isDigits(s[6])
+//				&& NumberUtils.isDigits(s[7])
+//				&& NumberUtils.isDigits(s[8])
+
+		) {
+			return true;
+		}
+		return false;
 	}
 }
