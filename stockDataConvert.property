@@ -1,9 +1,17 @@
 入力文件路径=C:\\Users\\beihai\\Desktop\\tool\\沪深Ａ股20190417.txt
-sh出力目录=C:\\Users\\beihai\\Desktop\\tool_windowsXP2.0
+sh出力目录=/Users/haoyan/Desktop/StockDataConvert/data/output/sh
 sz出力目录=C:\\Users\\beihai\\Desktop\\tool\\sz
 #1=钱龙
 #2=飞狐
 出力数据格式=2
+
+IP=61.49.50.190
+port=7709
+
+#0=文本导入
+#1=WGET
+#2=DLL
+方案=2
 
 #------------------------------------------------
 #以下位网络数据工具专用

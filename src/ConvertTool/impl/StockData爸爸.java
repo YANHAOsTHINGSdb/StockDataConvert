@@ -39,7 +39,7 @@ public class StockData爸爸 {
 	 *
 	 * @param str
 	 */
-	protected boolean 判断是不是实际的数据(String[] s) {
+	protected static boolean 判断是不是实际的数据(String[] s) {
 		// 如果第一项不为数字，则是标题行，需要掠过
 		// 下例的时候也会报错：
 		// 603982	Ȫ������	--  	--  	--  	0.00	0	0
@@ -67,17 +67,17 @@ public class StockData爸爸 {
 		return false;
 	}
 
-	private boolean isZore(String str) {
+	private static boolean isZore(String str) {
 		if(Float.parseFloat(str) == 0.0) {
 			return true;
 		}
 		return false;
 	}
 
-	private boolean isFloat(String str) {
+	private static boolean isFloat(String str) {
 		//check if float
 	    try{
-	        Float.parseFloat(str);	        
+	        Float.parseFloat(str);
 	    }catch(NumberFormatException e){
 	    	return false;
 	    }
@@ -94,7 +94,7 @@ public class StockData爸爸 {
 		}
 		return sStockPath[1];
 	}
-	
+
 	public String 取得市场路径2(String s股票代号) {
 		if(s股票代号.equals("1")) {
 			return sStockPath[0];
@@ -116,14 +116,14 @@ public class StockData爸爸 {
 	}
 
 	protected void write(String sFileName,  byte[] byteData) {
-		
-		// 
+
+		//
 		File file = new File(FilenameUtils.getFullPath(sFileName));
-		
+
 		if(!file.exists()) {
 			file.mkdir();
 		}
-		
+
 		//ByteArrayOutputStream byteArrayOutputStream = null;
 		DataOutputStream dataOutputStream = null;
 	      try{
@@ -158,8 +158,8 @@ public class StockData爸爸 {
 				}
 	       }
 	}
-	
-	protected boolean 判断是不是实际的数据ForDLLData(String[] s) {
+
+	protected static boolean 判断是不是实际的数据ForDLLData(String[] s) {
 		/**
 			市场		0【统一替换成 0:上证指数 1:深证指数】
 			代码		1【代码】
@@ -206,7 +206,7 @@ public class StockData爸爸 {
 			涨速		42
 			活跃度	43
 		 */
-		
+
 		if(		(s[0].equals("0") || s[0].equals("1"))
 				&& isFloat(s[3])
 				&& isFloat(s[5])

@@ -13,7 +13,10 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import InputData.InputDataUtil;
 import OutputData.OutputDataUtil;
+import OutputData.OutputDataUtil爸爸;
+import OutputData.feihu.DayDataOutputBean;
 import OutputData.feihu.OutputDataUtil飞狐;
 import OutputData.qianlong.OutputDataUtil钱龙;
 
@@ -85,26 +88,61 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 	        System.out.println(e);
 	      }
 	}
-	 
+
 	 public void 输出到文件2() {
 
 		this.sDate = new String();
+		// this.sDate = "20190507";
 		//List<String[]> todayDatas = new ArrayList<String[]>();
 		List<String> todayDatas = new ArrayList<String>();
 		// 取得最后交易日的成交数据
-		//if(InputDataUtil.取得最后交易日的数据(todayDatas, sDate)) {
-			// 
-			todayDatas.add("0	002191	4052	12.580000	13.410000	12.980000	13.800000	12.220000	14999043	-1258	591083	4542	762218816.000000	327635	263448	6	129813	12.580000	12.590000	1280	1113	12.570000	12.600000	22	112	12.530000	12.610000	93	30	12.520000	12.620000	850	178	12.510000	12.630000	4	280	3402	0	-57	187	-65	0.400000	4052");
+
+		byte[] outputTofile = new byte[0];
+		byte[] resultByte深沪股票 = new byte[0];
+
+		byte[] header = null;
+		byte[] type = null;
+		byte[] 股票数 = null;
+		int i股票数 =0;
+
+		if(InputDataUtil.取得最后交易日的数据(todayDatas, sDate)) {
+			//
+			// todayDatas.add("0	002191	4052	12.580000	13.410000	12.980000	13.800000	12.220000	14999043	-1258	591083	4542	762218816.000000	327635	263448	6	129813	12.580000	12.590000	1280	1113	12.570000	12.600000	22	112	12.530000	12.610000	93	30	12.520000	12.620000	850	178	12.510000	12.630000	4	280	3402	0	-57	187	-65	0.400000	4052");
 			if(todayDatas == null || todayDatas.size() <= 0) {return;}
-			
+
 	        for(String todayData:todayDatas) {
 	            System.out.println(todayData);
-	            解析每一行的数据2(todayData);
+				// 解析文件返回出力内容
+				DayDataOutputBean dayDataOutputBean飞狐 = new DayDataOutputBean();
+				// byte[] resultByteO一只股票 = 将入力文件的内容转成Byte (file, dayDataOutputBean飞狐);
+				byte[] resultByteO一行 = StockDataHistoryDayConvertTool.解析每一行的数据2(this.sDate, todayData, dayDataOutputBean飞狐);
+				// 【dayDataOutputBean飞狐】是从子函数里返回的值
+				if(header == null)header = dayDataOutputBean飞狐.getHeader();
+				if(type == null)type = dayDataOutputBean飞狐.getType();
+
+				// 股票个数加1
+				if(resultByteO一行 != null && resultByteO一行.length > 1 ) {
+					// 整合出力数据
+					resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一行);
+
+					i股票数 ++;
+				}
 	        }
-		//}
+
+			if(i股票数 == 0) return; // 如果股票数为零，就退出
+			if(股票数 == null)股票数 = OutputDataUtil爸爸.convertInttoBytePublic(i股票数);
+
+			// 最终整合
+			outputTofile = OutputDataUtil爸爸.数组合并(header,type,股票数,resultByte深沪股票);
+
+			String outFileName = PROPERTY.取得飞狐用导入数据文件名();
+			outFileName = StringUtils.isEmpty(outFileName)?"historyDataForFeihuSoftWare": outFileName;
+			write(PROPERTY.取得sh出力目录().concat("\\").concat(outFileName).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])),outputTofile);
+
+		}
 	}
-	 
-	 
+
+
 //	/*
 //	 * Java文件操作 获取不带扩展名的文件名
 //	 *
@@ -166,9 +204,9 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 
 			write2(取得市场路径2(s[0]).concat("/").concat(s[0]).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])), sData);
 		}
-		
+
 	}
-	
+
 
 		/**
 	 *

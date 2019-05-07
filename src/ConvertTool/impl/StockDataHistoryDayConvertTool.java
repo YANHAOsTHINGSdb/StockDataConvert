@@ -75,14 +75,14 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 			if(resultByteO一只股票 != null && resultByteO一只股票.length > 1 ) {
 				// 整合出力数据
 				resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, resultByteO一只股票);
-				
+
 				i股票数 ++;
 			}
 		}
 		if(i股票数 == 0) return; // 如果股票数为零，就退出
 		if(股票数 == null)股票数 = OutputDataUtil爸爸.convertInttoBytePublic(i股票数);
-		
-		
+
+
 		// 最终整合
 		outputTofile = OutputDataUtil爸爸.数组合并(header,type,股票数,resultByte深沪股票);
 
@@ -91,7 +91,6 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 		write(PROPERTY.取得sh出力目录().concat("\\").concat(outFileName).concat(".".concat(s数据格式扩展名[Integer.parseInt(sOutPutDataType)])),outputTofile);
 	}
 
-	
 	/**
 	 *
 	 * @param file
@@ -166,7 +165,7 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 	 * @param str
 	 * @return
 	 */
-	private byte[] 解析每一行的数据(String str, DayDataOutputBean dayDataOutputBean飞狐) {
+	public static byte[] 解析每一行的数据(String str, DayDataOutputBean dayDataOutputBean飞狐) {
 		/*=======================================
 		|-----header			️
 		|-----type
@@ -204,22 +203,70 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 				8 jingxingzhiye
 			 */
 			String[] sData = new String[] {s[0].replace("-","").replace("/",""), s[3],s[4],s[5],s[6],s[7],s[8],s[1].replace("'",""),s[2]};
-			
-			// 
+
+			//
 			return getByte(sData, dayDataOutputBean飞狐);
-			
+
 		}
-		
 		return null;
-
-
 	}
+
+	/**
+	 * 要把一行拆成一个数组
+	 * @param str
+	 * @return
+	 */
+	public static byte[] 解析每一行的数据2(String sDate, String str, DayDataOutputBean dayDataOutputBean飞狐) {
+		/*=======================================
+		|-----header			️
+		|-----type
+		|-----股票数
+				|------股票代码
+				|------股票中文名
+				|------日线个数
+						|------开		⬅
+						|------高
+						|------低
+						|------收
+		=======================================*/
+		// 把数据分解成数组
+		String[] s = str.split("\\t");
+		if (s.length < 8) return null;
+		// 判断是不是实际的数据
+		if(判断是不是实际的数据ForDLLData(s)) {
+			// 只有实际的数据才进行后续处理
+			// 先取得股票代号，做成文件名
+			// 再取得入力的值
+			// 输出实体文件
+
+			// 先取得股票代号，做成文件名
+			// 日期	股票代码	名称	开盘价	最高价	收盘价	最低价	收盘价	成交量	成交金额
+
+			// 先取得股票代号，做成文件名
+			String s股票名称=s[0].equals("0")?"深证指数":"上证指数";
+			String s股票代码=s[1];
+			String s开=s[5];
+			String s高=s[6];
+			String s低=s[7];
+			String s收=s[3];
+			String s成交量=s[10];
+			String s成交额=s[12];
+			String[] sData = new String[] {sDate, s开,s高,s低,s收,s成交量,s成交额,s股票代码,s股票名称};
+
+			//
+			return getByte(sData, dayDataOutputBean飞狐);
+
+		}
+		return null;
+	}
+
+
 	/**
 	 * 再把数组转成byte
 	 * @param sData
 	 * @return
 	 */
-	private byte[] getByte(String[] sData, DayDataOutputBean dayDataOutputBean飞狐) {
+	private static byte[] getByte(String[] sData, DayDataOutputBean dayDataOutputBean飞狐) {
 		OutputDataUtil outputDataUtil=null;
 		switch(sOutPutDataType) {
 		case "1" : // 钱龙格式数据分析
