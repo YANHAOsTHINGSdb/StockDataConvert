@@ -216,7 +216,7 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 	 * @param str
 	 * @return
 	 */
-	public static byte[] 解析每一行的数据2(String sDate, String str, DayDataOutputBean dayDataOutputBean飞狐) {
+	public static byte[] 解析每一行的数据2(String[] sDateDll, String str, DayDataOutputBean dayDataOutputBean飞狐) {
 		/*=======================================
 		|-----header			️
 		|-----type
@@ -243,7 +243,8 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 			// 日期	股票代码	名称	开盘价	最高价	收盘价	最低价	收盘价	成交量	成交金额
 
 			// 先取得股票代号，做成文件名
-			String s股票名称=s[0].equals("0")?"深证指数":"上证指数";
+			String s市场=s[0];
+			String s股票名称=s[44];
 			String s股票代码=s[1];
 			String s开=s[5];
 			String s高=s[6];
@@ -251,7 +252,8 @@ public class StockDataHistoryDayConvertTool extends StockData爸爸 implements C
 			String s收=s[3];
 			String s成交量=s[10];
 			String s成交额=s[12];
-			String[] sData = new String[] {sDate, s开,s高,s低,s收,s成交量,s成交额,s股票代码,s股票名称};
+			String s日期=sDateDll[0];
+			String[] sData = new String[] {s日期, s开,s高,s低,s收,s成交量,s成交额,s股票代码,s股票名称,s市场};
 
 			//
 			return getByte(sData, dayDataOutputBean飞狐);

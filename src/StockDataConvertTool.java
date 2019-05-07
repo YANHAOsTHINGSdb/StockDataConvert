@@ -3,10 +3,11 @@ import ConvertTool.impl.StockDataHistoryDayConvertTool;
 import ConvertTool.impl.StockDataOneDayConvertTool;
 
 public class StockDataConvertTool {
-
+	
+	public static String s方案 = null;
 	public static void main(String[] args) {
 
-		String s方案 = PROPERTY.取得解析方案();
+		s方案 = PROPERTY.取得解析方案();
 		
 		switch(s方案) {
 		case "0":

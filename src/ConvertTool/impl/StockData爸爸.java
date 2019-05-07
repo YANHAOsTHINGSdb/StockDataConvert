@@ -20,6 +20,7 @@ public class StockData爸爸 {
 			};
 	// 日期！，每次只取得一个日期的文件。
 	String sDate = null;
+	String[] sDateDll = null;
 	// 出力的路径
 	// 因为sz与sh是在同一个文件里的。所以出力的时候要分开来
 	String[] sStockPath =
@@ -206,15 +207,31 @@ public class StockData爸爸 {
 			涨速		42
 			活跃度	43
 		 */
-
-		if(		(s[0].equals("0") || s[0].equals("1"))
+		if((s[0].equals("1") && s[1].charAt(0)!='6')) {
+			return false;
+		}
+		if((s[0].equals("0") && s[1].charAt(0)=='3')) {
+			if(!s[1].equals("399001")) {
+				return false;
+			}
+		}
+		
+		if(s[1].equals("002067")) {
+			s[1] = "002067";
+		}
+		if((s[0].equals("0") || s[0].equals("1"))
 				&& isFloat(s[3])
 				&& isFloat(s[5])
 				&& isFloat(s[6])
 				&& isFloat(s[7])
 				&& isFloat(s[10])
 				&& isFloat(s[12])
-
+				&& !isZore(s[10])
+				&& !isZore(s[3])
+				&& !isZore(s[5])
+				&& !isZore(s[6])
+				&& !isZore(s[7])
+				
 //				&& NumberUtils.isDigits(s[3])
 //				&& NumberUtils.isDigits(s[4])
 //				&& NumberUtils.isDigits(s[5])

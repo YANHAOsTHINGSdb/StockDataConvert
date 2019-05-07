@@ -73,7 +73,7 @@ public class hqApiJava1
 			//必须把TdxHqApi.dll复制到java工程目录下; 
 			//java工程必须添加引用 jna.jar, 在 https://github.com/twall/jna 下载 jna.jar 
 			//无论用什么语言编程，都必须仔细阅读VC版内的关于DLL导出函数的功能和参数含义说明，不仔细阅读完就提出问题者因时间精力所限，恕不解答。
-			System.setProperty("jna.library.path", "D:\\pleiades\\workspace\\StockData\\src\\main\\java\\TdxHqApi\\");
+			System.setProperty("jna.library.path", ".\\src\\InputData\\");
 			TdxHqLibrary TdxHqLibrary1 = (TdxHqLibrary)Native.loadLibrary("TdxHqApi1",TdxHqLibrary.class);
 			
 			
@@ -89,10 +89,10 @@ public class hqApiJava1
 			System.out.println(Native.toString(Result, "GBK"));
 			
 			// 获取五档报价数据
-			byte[] Market={0,1};
-			String[] Zqdm={"399001","000001"};
+			byte[] Market={0,0,1};
+			String[] Zqdm={"399001","000523","000001"};
 			ShortByReference Count=new ShortByReference();
-			Count.setValue((short)2);
+			Count.setValue((short)3);
 			boolean1 =TdxHqLibrary1.TdxHq_GetSecurityQuotes(Market,  Zqdm,  Count, Result, ErrInfo);
 			if (!boolean1)
 			{
@@ -170,7 +170,7 @@ public class hqApiJava1
 		}
 	}
 
-	public static byte[] getGetSecurityQuotes(byte[] Market, String[] Zqdm, byte[] Result, byte[] ErrInfo) {
+	public static byte[] getGetSecurityQuotes(byte[] Market, String[] Zqdm, ShortByReference count, byte[] Result, byte[] ErrInfo) {
 		// 这个函数的意义在于通多DLL
 		// 取得股票信息
 		// 并返回
@@ -178,9 +178,8 @@ public class hqApiJava1
 		
 //		byte[] Market={0,1};
 //		String[] Zqdm={"399001","000001"};
-		ShortByReference Count=new ShortByReference();
-		Count.setValue((short)2);
-		boolean boolean1 =TdxHqLibrary1.TdxHq_GetSecurityQuotes(Market,  Zqdm,  Count, Result, ErrInfo);
+
+		boolean boolean1 =TdxHqLibrary1.TdxHq_GetSecurityQuotes(Market,  Zqdm,  count, Result, ErrInfo);
 		if (!boolean1)
 		{
 			System.out.println(Native.toString(ErrInfo, "GBK"));
