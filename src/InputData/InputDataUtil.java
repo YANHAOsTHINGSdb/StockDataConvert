@@ -219,20 +219,20 @@ public class InputDataUtil {
 				break;
 			}
 			if(股票代码Result.get(i)[0].length() != 6) continue;
-			if(i市场代码 ==1) {
-				if((股票代码Result.get(i)[0].charAt(0) == '6'|| 股票代码Result.get(i)[0].charAt(0) == '0'|| 股票代码Result.get(i)[0] == "1A0001")) {
-					
-				}else {
-					continue;
-				}
-			}
-			if(i市场代码 ==0) {
-				if((股票代码Result.get(i)[0].charAt(0) == '1')) {
-					continue;
-				}else {
-					
-				}
-			}
+//			if(i市场代码 ==1) {
+//				if((股票代码Result.get(i)[0].charAt(0) == '6'|| 股票代码Result.get(i)[0].charAt(0) == '0'|| 股票代码Result.get(i)[0] == "1A0001")) {
+//					
+//				}else {
+//					continue;
+//				}
+//			}
+//			if(i市场代码 ==0) {
+//				if((股票代码Result.get(i)[0].charAt(0) == '1')) {
+//					continue;
+//				}else {
+//					
+//				}
+//			}
 			股票代码[j] = 股票代码Result.get(i)[取得位置];
 			j++;
 		}

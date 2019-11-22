@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/Users/haoyan/Desktop/THINGSdb/commons-lang3-3.8.jar"/>
 	<classpathentry kind="lib" path="/Users/haoyan/Downloads/commons-io-2.6/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="/Users/haoyan/Desktop/StockDataConvert/lombok.jar"/>
+	<classpathentry kind="lib" path="/Users/haoyan/Desktop/StockDataConvert/jna-4.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

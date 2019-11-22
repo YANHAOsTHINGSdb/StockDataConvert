@@ -207,14 +207,14 @@ public class StockData爸爸 {
 			涨速		42
 			活跃度	43
 		 */
-		if((s[0].equals("1") && s[1].charAt(0)!='6')) {
-			return false;
-		}
-		if((s[0].equals("0") && s[1].charAt(0)=='3')) {
-			if(!s[1].equals("399001")) {
-				return false;
-			}
-		}
+//		if((s[0].equals("1") && s[1].charAt(0)!='6')) {
+//			return false;
+//		}
+//		if((s[0].equals("0") && s[1].charAt(0)=='3')) {
+//			if(!s[1].equals("399001")) {
+//				return false;
+//			}
+//		}
 		
 		if(s[1].equals("002067")) {
 			s[1] = "002067";
