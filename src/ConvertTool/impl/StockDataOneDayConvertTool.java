@@ -90,14 +90,14 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 	}
 
 	 /**
-	  * 
+	  *
 	  */
 	 public void 输出到文件2() {
 
-		this.sDateDll = new String[1];
+		this.s最后交易日期 = new String[1];
 		// this.sDate = "20190507";
 		//List<String[]> todayDatas = new ArrayList<String[]>();
-		List<String> todayDatas = new ArrayList<String>();
+		List<String> 当日行情数据list = new ArrayList<String>();
 		// 取得最后交易日的成交数据
 
 		byte[] outputTofile = new byte[0];
@@ -112,18 +112,18 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 		byte[] 股票中文名 = null;
 		byte[] 日线个数 = null;
 		int i日线个数 = 1;
-		
-		if(InputDataUtil.取得最后交易日的数据(todayDatas, sDateDll)) {
+
+		if(InputDataUtil.取得行情数据和最后交易日(当日行情数据list, s最后交易日期)) {
 			//
 			// todayDatas.add("0	002191	4052	12.580000	13.410000	12.980000	13.800000	12.220000	14999043	-1258	591083	4542	762218816.000000	327635	263448	6	129813	12.580000	12.590000	1280	1113	12.570000	12.600000	22	112	12.530000	12.610000	93	30	12.520000	12.620000	850	178	12.510000	12.630000	4	280	3402	0	-57	187	-65	0.400000	4052");
-			if(todayDatas == null || todayDatas.size() <= 0) {return;}
+			if(当日行情数据list == null || 当日行情数据list.size() <= 0) {return;}
 
-	        for(String todayData:todayDatas) {
+	        for(String todayData:当日行情数据list) {
 	            System.out.println(todayData);
 				// 解析文件返回出力内容
 				DayDataOutputBean dayDataOutputBean飞狐 = new DayDataOutputBean();
 				// byte[] resultByteO一只股票 = 将入力文件的内容转成Byte (file, dayDataOutputBean飞狐);
-				byte[] resultByteO一行 = StockDataHistoryDayConvertTool.解析每一行的数据2(this.sDateDll, todayData, dayDataOutputBean飞狐);
+				byte[] resultByteO一行 = StockDataHistoryDayConvertTool.解析每一行的数据2(this.s最后交易日期, todayData, dayDataOutputBean飞狐);
 				// 【dayDataOutputBean飞狐】是从子函数里返回的值
 				if(header == null)header = dayDataOutputBean飞狐.getHeader();
 				if(type == null)type = dayDataOutputBean飞狐.getType();
@@ -133,10 +133,10 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 				// 股票个数加1
 				if(resultByteO一行 != null && resultByteO一行.length > 1 ) {
 					// 整合出力数据
-					
+
 					日线个数 = OutputDataUtil爸爸.convertInttoBytePublic(i日线个数);
 					resultByte深沪股票 = OutputDataUtil爸爸.数组合并(resultByte深沪股票, 股票代码, 股票中文名, 日线个数,resultByteO一行);
-					
+
 					i股票数 ++;
 				}
 	        }

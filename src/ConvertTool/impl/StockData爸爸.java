@@ -20,7 +20,7 @@ public class StockData爸爸 {
 			};
 	// 日期！，每次只取得一个日期的文件。
 	String sDate = null;
-	String[] sDateDll = null;
+	String[] s最后交易日期 = null;
 	// 出力的路径
 	// 因为sz与sh是在同一个文件里的。所以出力的时候要分开来
 	String[] sStockPath =
@@ -215,7 +215,7 @@ public class StockData爸爸 {
 				return false;
 			}
 		}
-		
+
 		if(s[1].equals("002067")) {
 			s[1] = "002067";
 		}
@@ -231,7 +231,7 @@ public class StockData爸爸 {
 				&& !isZore(s[5])
 				&& !isZore(s[6])
 				&& !isZore(s[7])
-				
+
 //				&& NumberUtils.isDigits(s[3])
 //				&& NumberUtils.isDigits(s[4])
 //				&& NumberUtils.isDigits(s[5])
