@@ -106,18 +106,18 @@ public class TdxHqApi209912301
 			System.out.println(Native.toString(Result, "GBK"));
 			
 			
-			// 获取指数K线数据
-			ShortByReference Count2=new ShortByReference();
-			Count2.setValue((short)1);
-			// 数据种类, 0->5分钟K线 1->15分钟K线 2->30分钟K线 3->1小时K线 4->日K线 5->周K线 6->月K线 7->1分钟K线 8->1分钟K线 9->日K线 10->季K线 11->年K线
-			// boolean1=TdxHqLibrary1.TdxL2Hq_GetIndexBars((byte)4,(byte)1,"1A0001",(short) 0, Count2, Result, ErrInfo);
-			boolean1=TdxHqLibrary1.TdxHq_GetIndexBars((byte)4,(byte)1,"000001",(short) 0, Count2, Result, ErrInfo);
-			if (!boolean1)
-			{
-				System.out.println(Native.toString(ErrInfo, "GBK"));
-				return;
-			}
-			System.out.println(Native.toString(Result, "GBK"));
+//			// 获取指数K线数据
+//			ShortByReference Count2=new ShortByReference();
+//			Count2.setValue((short)1);
+//			// 数据种类, 0->5分钟K线 1->15分钟K线 2->30分钟K线 3->1小时K线 4->日K线 5->周K线 6->月K线 7->1分钟K线 8->1分钟K线 9->日K线 10->季K线 11->年K线
+//			// boolean1=TdxHqLibrary1.TdxL2Hq_GetIndexBars((byte)4,(byte)1,"1A0001",(short) 0, Count2, Result, ErrInfo);
+//			boolean1=TdxHqLibrary1.TdxHq_GetIndexBars((byte)4,(byte)1,"000001",(short) 0, Count2, Result, ErrInfo);
+//			if (!boolean1)
+//			{
+//				System.out.println(Native.toString(ErrInfo, "GBK"));
+//				return;
+//			}
+//			System.out.println(Native.toString(Result, "GBK"));
 			
 			
 			// 获取分笔图数据
@@ -161,8 +161,15 @@ public class TdxHqApi209912301
 			}
 			System.out.println(Native.toString(Result, "GBK"));
 			
+			// 获取权息数据
+			boolean1= TdxHqApi20991230.TdxHq_GetXDXRInfo((byte)0, "000523", Result, ErrInfo);
+			if (!boolean1)
+			{
+				System.out.println(Native.toString(ErrInfo, "GBK"));
+				return;
+			}
 			
-			
+			System.out.println(Native.toString(Result, "GBK"));
 			
 			TdxHqLibrary1.TdxHq_Disconnect();
 			
@@ -170,7 +177,7 @@ public class TdxHqApi209912301
 		}
 		catch(Exception e)
 		{
-			
+			System.out.println(e.getMessage());
 		}
 	}
 

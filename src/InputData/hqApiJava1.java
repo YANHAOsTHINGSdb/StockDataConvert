@@ -139,6 +139,7 @@ public class hqApiJava1
 			System.out.println(Native.toString(Result, "GBK"));
 			
 			// 获取市场内指定范围内的所有证券代码
+			System.out.println("获取市场内指定范围内的所有证券代码");
 			boolean1= TdxHqLibrary1.TdxHq_GetSecurityCount((byte)0, Count, ErrInfo);
 			if (!boolean1)
 			{
@@ -148,6 +149,7 @@ public class hqApiJava1
 			System.out.println("获取指定市场内的证券数目 =".concat(Count+""));
 			
 			// 获取市场内指定范围内的所有证券代码
+			System.out.println("获取市场内指定范围内的所有证券代码");
 			// boolean  TdxHq_GetSecurityList(byte Market, short Start, ShortByReference  Count, byte[] Result, byte[] ErrInfo);
 			boolean1= TdxHqLibrary1.TdxHq_GetSecurityList((byte)0,(short)0, Count, Result, ErrInfo);
 			if (!boolean1)
@@ -157,8 +159,35 @@ public class hqApiJava1
 			}
 			System.out.println(Native.toString(Result, "GBK"));
 			
+			// 获取权息数据
+			System.out.println("获取权息数据");
+			boolean1= TdxHqLibrary1.TdxHq_GetXDXRInfo((byte)0, "000523", Result, ErrInfo);
+			if (!boolean1)
+			{
+				System.out.println(Native.toString(ErrInfo, "GBK"));
+				return;
+			}
+			System.out.println(Native.toString(Result, "GBK"));
 			
+			//获取财务数据
+			System.out.println("获取财务数据");
+			boolean1= TdxHqLibrary1.TdxHq_GetFinanceInfo((byte)0, "000523", Result, ErrInfo);
+			if (!boolean1)
+			{
+				System.out.println(Native.toString(ErrInfo, "GBK"));
+				return;
+			}
+			System.out.println(Native.toString(Result, "GBK"));
 			
+			//获取F10信息类别
+			System.out.println("获取F10信息类别");
+			boolean1= TdxHqLibrary1.TdxHq_GetCompanyInfoCategory((byte)0, "000523", Result, ErrInfo);
+			if (!boolean1)
+			{
+				System.out.println(Native.toString(ErrInfo, "GBK"));
+				return;
+			}
+			System.out.println(Native.toString(Result, "GBK"));
 			
 			TdxHqLibrary1.TdxHq_Disconnect();
 			

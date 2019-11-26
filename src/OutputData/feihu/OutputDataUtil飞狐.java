@@ -53,7 +53,12 @@ public class OutputDataUtil飞狐 extends OutputDataUtil爸爸 implements Output
 		dayDataBean飞狐.setDataSize(0x1);
 		dayDataBean飞狐.setHeader(0xffffffe2);
 		dayDataBean飞狐.setI成交次数(0x0);
-		dayDataBean飞狐.setStockChName(取得市场代号2(datas[9]).concat(datas[7]).toCharArray());
+		if(PROPERTY.取得解析方案().equals("2")) {
+			dayDataBean飞狐.setStockChName(取得市场代号2(datas[9]).concat(datas[7]).toCharArray());
+		}else {
+			dayDataBean飞狐.setStockChName(取得市场代号(datas[7]).concat(datas[7]).toCharArray());
+		}
+		
 		// 因为飞狐软件将上海综合指数视为【SH1A0001】
 		// 但是下载的数据为【000001】
 		if(datas[8].equals("上证指数") && (datas[7].replace("'", "").equals("000001"))){
