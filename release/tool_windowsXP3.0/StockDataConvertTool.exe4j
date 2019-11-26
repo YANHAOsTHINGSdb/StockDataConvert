@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="6.0.2" transformSequenceNumber="2">
-  <directoryPresets config="../release/StockDataConvert_lib" />
-  <application name="StockDataConvert" distributionSourceDir="C:/Users/beihai/Desktop/tool_windowsXP2.0">
+  <directoryPresets config="./StockDataConvert_lib" />
+  <application name="StockDataConvert" distributionSourceDir="C:/Users/beihai/Desktop/tool_windowsXP3.0">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
@@ -21,12 +21,10 @@
       <directory location="./jre" />
     </searchSequence>
     <classPath>
-      <archive location="C:/Users/beihai/Desktop/tool_windowsXP2.0/StockDataConvert.jar" failOnError="false" />
+      <archive location="C:/Users/beihai/Desktop/tool_windowsXP3.0/StockDataConvert.jar" failOnError="false" />
     </classPath>
     <modulePath />
-    <nativeLibraryDirectories>
-      <directory name="../release/StockDataConvert_lib" />
-    </nativeLibraryDirectories>
+    <nativeLibraryDirectories />
     <vmOptions />
   </java>
   <includedFiles />

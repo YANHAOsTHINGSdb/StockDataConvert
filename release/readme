@@ -1,0 +1,6 @@
+dll jre 			每个产品都需要的公共资料
+tool_2.0 			钱龙格式转换工具
+tool_windowsXP2.0	wget版飞狐数据格式转换工具
+tool_windowsXP3.0	dll版飞狐数据格式转换工具
+
+注意。每次做成工具时都要将dll jre里面的内容拷贝到文件夹内
