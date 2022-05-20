@@ -1,6 +1,6 @@
 入力文件路径=C:\\Users\\beihai\\Desktop\\tool\\沪深Ａ股20190417.txt
-sh出力目录=C:\\Users\\beihai\\Desktop\\tool_windowsXP2.0
-sz出力目录=C:\\Users\\beihai\\Desktop\\tool\\sz
+sh出力目录=C:\\Users\\yanhao\\Desktop
+sz出力目录=C:\\Users\\yanhao\\Desktop
 #1=钱龙
 #2=飞狐
 出力数据格式=2
@@ -13,6 +13,7 @@ port=7709
 #2=DLL
 方案=2
 
+指定历史数据日期=20220519
 #------------------------------------------------
 #以下位网络数据工具专用
 #------------------------------------------------

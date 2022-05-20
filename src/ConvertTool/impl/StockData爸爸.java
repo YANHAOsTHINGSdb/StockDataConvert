@@ -211,9 +211,9 @@ public class StockData爸爸 {
 			return false;
 		}
 		if((s[0].equals("0") && s[1].charAt(0)=='3')) {
-			if(!s[1].equals("399001")) {
-				return false;
-			}
+//			if(!s[1].equals("399001")) {
+//				return false;
+//			}
 		}
 
 		if(s[1].equals("002067")) {

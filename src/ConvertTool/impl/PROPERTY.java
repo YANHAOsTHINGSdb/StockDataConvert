@@ -82,11 +82,15 @@ public class PROPERTY {
 	}
 
 	public static int 取得Port() {
-		
+
 		return Integer.parseInt(取得指定信息("port"));
 	}
 
 	public static String 取得解析方案() {
 		return 取得指定信息("方案");
+	}
+
+	public static String 取得指定历史数据日期() {
+		return 取得指定信息("指定历史数据日期");
 	}
 }

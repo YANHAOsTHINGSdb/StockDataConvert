@@ -10,7 +10,7 @@ import com.sun.jna.ptr.ShortByReference;
 
 public class TdxHqApi209912301
 {
-	public interface TdxHqApi2099 extends Library 
+	public interface TdxHqApi2099 extends Library
 	{
 		//连接券商行情服务器
 		boolean  TdxHq_Connect(String IP, int Port, byte[] Result, byte[] ErrInfo);
@@ -19,18 +19,18 @@ public class TdxHqApi209912301
 		/// <summary>
 		 /// 获取指数的指定范围内K线数据
 		/// </summary>
-		 /// <param name="Category">K线种类, 
-		 //		0->5分钟K线 
-		 //		1->15分钟K线 
-		 //		2->30分钟K线 
-		 //		3->1小时K线 
-		 //		4->日K线 
-		 //		5->周K线 
-		 //		6->月K线 
+		 /// <param name="Category">K线种类,
+		 //		0->5分钟K线
+		 //		1->15分钟K线
+		 //		2->30分钟K线
+		 //		3->1小时K线
+		 //		4->日K线
+		 //		5->周K线
+		 //		6->月K线
 		 //		7->1分钟
-		 //		8->1分钟K线 
-		 //		9->日K线 
-		 //		10->季K线 
+		 //		8->1分钟K线
+		 //		9->日K线
+		 //		10->季K线
 		 //		11->年K线< / param>
 		 /// <param name="Market">市场代码, 0->深圳 1->上海</param>
 		 /// <param name="Zqdm">证券代码</param>
@@ -59,31 +59,31 @@ public class TdxHqApi209912301
 		boolean  TdxHq_GetXDXRInfo(byte Market, String Zqdm, byte[] Result, byte[] ErrInfo);
 		//获取财务数据
 		boolean  TdxHq_GetFinanceInfo(byte Market, String Zqdm, byte[] Result, byte[] ErrInfo);
-		//获取指定市场内的证券数目 
+		//获取指定市场内的证券数目
 		boolean  TdxHq_GetSecurityCount(byte Market, ShortByReference Result, byte[] ErrInfo);
 		//获取市场内指定范围内的所有证券代码
 		boolean  TdxHq_GetSecurityList(byte Market, short Start, ShortByReference  Count, byte[] Result, byte[] ErrInfo);
 		//断开服务器
-		boolean  TdxHq_Disconnect();        
+		boolean  TdxHq_Disconnect();
     }
 	static TdxHqApi2099 TdxHqApi20991230;
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		try
 		{
-			//DLL是32位的,因此必须使用jdk32位开发,才能调用DLL; 
-			//必须把TdxHqApi.dll复制到java工程目录下; 
-			//java工程必须添加引用 jna.jar, 在 https://github.com/twall/jna 下载 jna.jar 
+			//DLL是32位的,因此必须使用jdk32位开发,才能调用DLL;
+			//必须把TdxHqApi.dll复制到java工程目录下;
+			//java工程必须添加引用 jna.jar, 在 https://github.com/twall/jna 下载 jna.jar
 			//无论用什么语言编程，都必须仔细阅读VC版内的关于DLL导出函数的功能和参数含义说明，不仔细阅读完就提出问题者因时间精力所限，恕不解答。
 			//System.setProperty("jna.library.path", "D:\\pleiades\\workspace\\StockDataConvert\\src\\InputData\\");
 			System.setProperty("jna.library.path", ".\\src\\InputData\\");
 			// NOT this: Native.loadLibrary("dlls/Library.dll", YourInterface.class)
 			TdxHqApi2099 TdxHqLibrary1 = (TdxHqApi2099)Native.loadLibrary("TdxHqApi20991230.dll",TdxHqApi2099.class);
-			
-			
+
+
 			byte[] Result = new byte[65535];
 			byte[] ErrInfo = new byte[256];
-			
+
 			boolean boolean1=TdxHqLibrary1.TdxHq_Connect("61.49.50.190", 7709, Result, ErrInfo);
 			if (!boolean1)
 			{
@@ -91,7 +91,9 @@ public class TdxHqApi209912301
 				return;
 			}
 			System.out.println(Native.toString(Result, "GBK"));
-			
+
+
+
 			// 获取五档报价数据
 			byte[] Market={0,0,1};
 			String[] Zqdm={"399001","000523","000001"};
@@ -104,8 +106,13 @@ public class TdxHqApi209912301
 				return;
 			}
 			System.out.println(Native.toString(Result, "GBK"));
-			
-			
+
+			boolean1=TdxHqLibrary1.TdxHq_GetSecurityBars((byte)9,  Market[0],  Zqdm[0], (short) 0,  Count, Result, ErrInfo);
+			System.out.println(Native.toString(Result, "GBK"));
+
+			boolean1=TdxHqLibrary1.TdxHq_GetHistoryTransactionData( Market[0],  Zqdm[0], (short) 0,  Count, 20200519, Result, ErrInfo);
+			System.out.println(Native.toString(Result, "GBK"));
+
 //			// 获取指数K线数据
 //			ShortByReference Count2=new ShortByReference();
 //			Count2.setValue((short)1);
@@ -118,8 +125,8 @@ public class TdxHqApi209912301
 //				return;
 //			}
 //			System.out.println(Native.toString(Result, "GBK"));
-			
-			
+
+
 			// 获取分笔图数据
 			ShortByReference Count3=new ShortByReference();
 			Count3.setValue((short)80);
@@ -130,9 +137,9 @@ public class TdxHqApi209912301
 				return;
 			}
 			System.out.println(Native.toString(Result, "GBK"));
-			
-			
-			
+
+
+
 			// 获取F10数据的某类别的内容
 			boolean1= TdxHqLibrary1.TdxHq_GetCompanyInfoContent((byte)0,"000001", "000001.txt", 0, 10240, Result, ErrInfo);
 			if (!boolean1)
@@ -141,7 +148,7 @@ public class TdxHqApi209912301
 				return;
 			}
 			System.out.println(Native.toString(Result, "GBK"));
-			
+
 			// 获取市场内指定范围内的所有证券代码
 			boolean1= TdxHqLibrary1.TdxHq_GetSecurityCount((byte)0, Count, ErrInfo);
 			if (!boolean1)
@@ -150,7 +157,7 @@ public class TdxHqApi209912301
 				return;
 			}
 			System.out.println("获取指定市场内的证券数目 =".concat(Count+""));
-			
+
 			// 获取市场内指定范围内的所有证券代码
 			// boolean  TdxHq_GetSecurityList(byte Market, short Start, ShortByReference  Count, byte[] Result, byte[] ErrInfo);
 			boolean1= TdxHqLibrary1.TdxHq_GetSecurityList((byte)0,(short)0, Count, Result, ErrInfo);
@@ -160,7 +167,7 @@ public class TdxHqApi209912301
 				return;
 			}
 			System.out.println(Native.toString(Result, "GBK"));
-			
+
 			// 获取权息数据
 			boolean1= TdxHqApi20991230.TdxHq_GetXDXRInfo((byte)0, "000523", Result, ErrInfo);
 			if (!boolean1)
@@ -168,11 +175,11 @@ public class TdxHqApi209912301
 				System.out.println(Native.toString(ErrInfo, "GBK"));
 				return;
 			}
-			
+
 			System.out.println(Native.toString(Result, "GBK"));
-			
+
 			TdxHqLibrary1.TdxHq_Disconnect();
-			
+
 			System.out.println("�ѶϿ�����");
 		}
 		catch(Exception e)
@@ -186,7 +193,7 @@ public class TdxHqApi209912301
 		// 取得股票信息
 		// 并返回
 		// 它不负责出力结果的整理，只负责取得指定的数据，并返回。
-		
+
 //		byte[] Market={0,1};
 //		String[] Zqdm={"399001","000001"};
 		if(Market.length != Zqdm.length || Market.length != count.getValue()) {
@@ -201,11 +208,11 @@ public class TdxHqApi209912301
 		}
 		System.out.println(Native.toString(Result, "GBK"));
 		return Result;
-		
+
 	}
-	
+
 	public static boolean getGetSecurityCount(String Ip, byte[] Market, byte[] Zqdm) {
-		
+
 		byte[] Result = new byte[65535];
 		byte[] ErrInfo = new byte[256];
 		ShortByReference Count=new ShortByReference();
@@ -220,12 +227,12 @@ public class TdxHqApi209912301
 		System.out.println("获取指定市场内的证券数目 =".concat(Count+""));
 		return true;
 	}
-	
-	
+
+
 	public static boolean getGetSecurityList(byte Market, short start, ShortByReference Count, byte[] Result, byte[] ErrInfo, List<String[]> 股票代码ArrayList) {
 		boolean boolean1;
 		//List<String> 股票代码List=new ArrayList();
-		
+
 		ShortByReference ResultCount = new ShortByReference();
 		boolean1= TdxHqApi20991230.TdxHq_GetSecurityCount(Market, ResultCount, ErrInfo);//获取指定市场内的证券数目
 		int iCount = ResultCount.getValue();
@@ -233,13 +240,13 @@ public class TdxHqApi209912301
 			System.out.println(Native.toString(ErrInfo, "GBK"));
 			return false;
 		}
-		
+
 		for(int i=0; i<iCount ; i=i+1000) {
-			
+
 			//byte[] Result = new byte[65535];
 			//byte[] ErrInfo = new byte[256];
 			//ShortByReference Count=new ShortByReference();
-			
+
 			// 获取市场内指定范围内的所有证券代码
 			// boolean  TdxHq_GetSecurityList(byte Market, short Start, ShortByReference  Count, byte[] Result, byte[] ErrInfo);
 			boolean1= TdxHqApi20991230.TdxHq_GetSecurityList(Market, (short)i, Count, Result, ErrInfo);
@@ -255,12 +262,58 @@ public class TdxHqApi209912301
 		}
 		return true;
 	}
-	
-	
+
+
 	public static boolean getConnect(String IP, int Port, byte[] Result, byte[] ErrInfo) {
 
 		System.setProperty("jna.library.path", ".\\src\\InputData\\");
 		TdxHqApi20991230 = (TdxHqApi2099)Native.loadLibrary("TdxHqApi20991230.dll",TdxHqApi2099.class);
 		return TdxHqApi20991230.TdxHq_Connect(IP, Port, Result, ErrInfo);
+	}
+
+	//获取历史分时成交
+	public static boolean getHistoryTransactionData(byte Market, String Zqdm, short Start, ShortByReference Count, int date, byte[] Result, byte[] ErrInfo) {
+
+		boolean boolean1;
+		// 获取市场内指定范围内的所有证券代码
+		// boolean1= TdxHqApi20991230.TdxHq_GetSecurityCount((byte)0, Count, ErrInfo);
+		boolean1= TdxHqApi20991230.TdxHq_GetHistoryTransactionData( Market,  Zqdm, Start,  Count, date, Result, ErrInfo);
+		if (!boolean1)
+		{
+			System.out.println(Native.toString(ErrInfo, "GBK"));
+			return false;
+		}
+		System.out.println("获取指定市场内的证券数目 =".concat(Count+""));
+		return true;
+	}
+
+	public static boolean getSecurityBars(byte Category, byte Market, String Zqdm, short Start, ShortByReference Count, byte[] Result, byte[] ErrInfo) {
+
+		boolean boolean1;
+		// 获取市场内指定范围内的所有证券代码
+		// boolean1= TdxHqApi20991230.TdxHq_GetSecurityCount((byte)0, Count, ErrInfo);
+		boolean1= TdxHqApi20991230.TdxHq_GetSecurityBars(Category, Market,  Zqdm, Start,  Count, Result, ErrInfo);
+		if (!boolean1)
+		{
+			System.out.println(Native.toString(ErrInfo, "GBK"));
+			return false;
+		}
+		System.out.println("获取指定市场内的证券数目 =".concat(Count+""));
+		return true;
+	}
+
+	public static boolean getIndexBars(byte Category, byte Market, String Zqdm, short Start, ShortByReference Count, byte[] Result, byte[] ErrInfo) {
+
+		boolean boolean1;
+		// 获取市场内指定范围内的所有证券代码
+		// boolean1= TdxHqApi20991230.TdxHq_GetSecurityCount((byte)0, Count, ErrInfo);
+		boolean1= TdxHqApi20991230.TdxHq_GetIndexBars(Category, Market,  Zqdm, Start,  Count, Result, ErrInfo);
+		if (!boolean1)
+		{
+			System.out.println(Native.toString(ErrInfo, "GBK"));
+			return false;
+		}
+		System.out.println("获取指定市场内的证券数目 =".concat(Count+""));
+		return true;
 	}
 }
