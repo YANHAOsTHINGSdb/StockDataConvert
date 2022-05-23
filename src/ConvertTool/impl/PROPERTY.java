@@ -93,4 +93,8 @@ public class PROPERTY {
 	public static String 取得指定历史数据日期() {
 		return 取得指定信息("指定历史数据日期");
 	}
+	public static String 取得通达信历史数据路径() {
+		return 取得指定信息("通达信历史数据路径");
+	}
+
 }

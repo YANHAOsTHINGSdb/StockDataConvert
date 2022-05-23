@@ -11,14 +11,14 @@ port=7709
 #0=文本导入
 #1=WGET
 #2=DLL
-方案=2
+方案=1
 
 指定历史数据日期=20220519
 #------------------------------------------------
 #以下位网络数据工具专用
 #------------------------------------------------
 #下载数据保存路径
-downloadSavedPath=download
+downloadSavedPath=C:\\Users\\yanhao\\Downloads\\创业板日线数据
 
 #下载网址
 URL=http://quotes.money.163.com/service/chddata.html
@@ -33,4 +33,7 @@ downloadEndDate=20190417
 SH_CodeListPath=code\SH.txt
 
 #深圳股票下载对象的代码列表
-SZ_CodeListPath=code\SZ.txt
+SZ_CodeListPath=code\SZ.tx
+
+#通达信day历史数据
+通达信历史数据路径=C:\Users\yanhao\Documents\GitHub\StockDataConvert\testdata

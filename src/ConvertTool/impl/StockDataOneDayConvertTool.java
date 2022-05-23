@@ -123,7 +123,7 @@ public class StockDataOneDayConvertTool extends StockData爸爸 implements Conve
 				// 解析文件返回出力内容
 				DayDataOutputBean dayDataOutputBean飞狐 = new DayDataOutputBean();
 				// byte[] resultByteO一只股票 = 将入力文件的内容转成Byte (file, dayDataOutputBean飞狐);
-				byte[] resultByteO一行 = StockDataHistoryDayConvertTool.解析每一行的数据2(this.s最后交易日期, todayData, dayDataOutputBean飞狐);
+				byte[] resultByteO一行 = StockDataHistoryTxtDayConvertTool.解析每一行的数据2(this.s最后交易日期, todayData, dayDataOutputBean飞狐);
 				// 【dayDataOutputBean飞狐】是从子函数里返回的值
 				if(header == null)header = dayDataOutputBean飞狐.getHeader();
 				if(type == null)type = dayDataOutputBean飞狐.getType();
