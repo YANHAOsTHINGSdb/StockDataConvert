@@ -11,7 +11,6 @@ public class StockDataConvertTool {
 	public static void main(String[] args) throws IOException {
 
 		s方案 = PROPERTY.取得解析方案();
-		s方案 = "1";
 		switch(s方案) {
 		case "0":
 			new StockDataOneDayConvertTool().输出到文件(PROPERTY.取得入力文件路径());
@@ -27,7 +26,7 @@ public class StockDataConvertTool {
 			new StockDataOneDayConvertTool().输出到文件2();
 			break;
 		case "4":
-			new StockDataHistory通DA信DayConvertTool().输出到文件(PROPERTY.取得下载数据保存路径());
+			new StockDataHistory通DA信DayConvertTool().输出到文件(PROPERTY.取得通达信历史数据路径());
 			break;
 		}
 	}

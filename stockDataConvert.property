@@ -11,7 +11,7 @@ port=7709
 #0=文本导入
 #1=WGET
 #2=DLL
-方案=1
+方案=4
 
 指定历史数据日期=20220519
 #------------------------------------------------
@@ -36,4 +36,4 @@ SH_CodeListPath=code\SH.txt
 SZ_CodeListPath=code\SZ.tx
 
 #通达信day历史数据
-通达信历史数据路径=C:\Users\yanhao\Documents\GitHub\StockDataConvert\testdata
+通达信历史数据路径=testdata
