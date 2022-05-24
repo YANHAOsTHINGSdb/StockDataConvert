@@ -265,13 +265,13 @@ public class StockDataHistory通DA信DayConvertTool extends StockData爸爸 impl
 		result += "\t";
 		result += ByteUtil.toInt(行情数据, 0, 4);
 		result += "\t";
-		result += ByteUtil.toInt(行情数据, 4, 4);
+		result += ByteUtil.toInt(行情数据, 4, 4)*0.01;
 		result += "\t";
-		result += ByteUtil.toInt(行情数据, 8, 4);
+		result += ByteUtil.toInt(行情数据, 8, 4)*0.01;
 		result += "\t";
-		result += ByteUtil.toInt(行情数据, 12, 4);
+		result += ByteUtil.toInt(行情数据, 12, 4)*0.01;
 		result += "\t";
-		result += ByteUtil.toInt(行情数据, 16, 4);
+		result += ByteUtil.toInt(行情数据, 16, 4)*0.01;
 		result += "\t";
 		result += ByteUtil.toFloat(行情数据, 20, 4);
 		result += "\t";
