@@ -4,6 +4,7 @@ import ConvertTool.impl.PROPERTY;
 import ConvertTool.impl.StockDataHistoryTxtDayConvertTool;
 import ConvertTool.impl.StockDataHistory通DA信DayConvertTool;
 import ConvertTool.impl.StockDataOneDayConvertTool;
+import ConvertTool.impl.StockData财务ConvertTool;
 
 public class StockDataConvertTool {
 
@@ -22,8 +23,8 @@ public class StockDataConvertTool {
 			new StockDataOneDayConvertTool().输出到文件2();
 			break;
 		case "3":
-			// 指定某头天的历史数据
-			new StockDataOneDayConvertTool().输出到文件2();
+			// 指定财务数据
+			new StockData财务ConvertTool().输出到财务文件();//财务数据
 			break;
 		case "4":
 			new StockDataHistory通DA信DayConvertTool().输出到文件(PROPERTY.取得通达信历史数据路径());

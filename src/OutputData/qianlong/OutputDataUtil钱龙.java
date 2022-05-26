@@ -6,6 +6,7 @@ import java.nio.ByteOrder;
 import OutputData.OutputDataUtil;
 import OutputData.OutputDataUtil爸爸;
 import OutputData.feihu.DayDataOutputBean;
+import OutputData.feihu.财务DataOutputBean飞狐;
 
 public class OutputDataUtil钱龙 extends OutputDataUtil爸爸 implements OutputDataUtil {
 
@@ -68,6 +69,12 @@ public class OutputDataUtil钱龙 extends OutputDataUtil爸爸 implements Output
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
 		buffer.putInt(inputData);
 		return buffer.array();
+	}
+
+	@Override
+	public byte[] getOutputData财务(String[] sData, 财务DataOutputBean飞狐 财务dataOutputBean飞狐) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 
 }

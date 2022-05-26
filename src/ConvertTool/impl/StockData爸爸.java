@@ -16,7 +16,9 @@ public class StockData爸爸 {
 					"DAY", // 1:钱龙
 					"QDA", // 2:飞狐
 					"day", // 3:通达信
-					"DAD"  // 4:分析家
+					"DAD",  // 4:分析家
+					"ftsplit.CQD",//5：飞狐除权
+					"ftfin.CWD"   //6：飞狐财务
 			};
 	// 日期！，每次只取得一个日期的文件。
 	String sDate = null;
@@ -35,6 +37,9 @@ public class StockData爸爸 {
 	 */
 	static String sOutPutDataType =PROPERTY.取得出力数据格式();
 
+
+	final static String 飞狐除权_文件名 = "5";
+	final static String 飞狐财务_文件名 = "6";
 
 	/**
 	 *
@@ -116,7 +121,7 @@ public class StockData爸爸 {
 		return false;
 	}
 
-	protected void write(String sFileName,  byte[] byteData) {
+	public void write(String sFileName,  byte[] byteData) {
 
 		//
 		File file = new File(FilenameUtils.getFullPath(sFileName));

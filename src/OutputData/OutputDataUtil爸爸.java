@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class OutputDataUtil爸爸 {
@@ -166,6 +167,22 @@ public class OutputDataUtil爸爸 {
 			i已经加入的数据大小 += 对象数组.length;
 		}
 
+		return outputToByte;
+	}
+	/**
+	  * 数组组合的第2种写法
+	  * @param 合并对象数组
+	  * @return
+	  */
+	public static byte[] 数组合并2(byte[]... 合并对象数组) {
+		byte[] outputToByte = {};
+		int i所有参数的实际大小的总和 = 0;
+		for (byte[] 对象数组 : 合并对象数组) {
+
+			i所有参数的实际大小的总和 += 对象数组.length;
+			outputToByte = Arrays.copyOf(outputToByte, i所有参数的实际大小的总和);
+			System.arraycopy(对象数组, 0, outputToByte, i所有参数的实际大小的总和-对象数组.length, 对象数组.length);
+		}
 		return outputToByte;
 	}
 }
