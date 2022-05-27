@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="6.0.2" transformSequenceNumber="2">
-  <directoryPresets config="./StockDataConvert_lib" />
-  <application name="StockDataConvert" distributionSourceDir="C:/Users/beihai/Desktop/tool_windowsXP3.0">
+  <directoryPresets config="." />
+  <application name="StockDataConvert" distributionSourceDir="C:/Users/yanhao/Desktop/tool_windowsXP3.1">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
   </application>
-  <executable name="StockDataConvert" type="2" iconSet="false" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="false">
+  <executable name="StockDataConvert" type="1" iconSet="true" iconFile="C:/Users/yanhao/Documents/GitHub/StockDataConvert/release/cbj4r-aolua-001.ico" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="java9+" amd64="false">
     <messageSet />
     <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
   </executable>
@@ -16,15 +16,17 @@
       <versionLine x="20" y="40" text="version %VERSION%" fontSize="8" fontColor="0,0,0" bold="false" />
     </text>
   </splashScreen>
-  <java mainClass="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader" mainMode="1" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true" minVersion="1.4" maxVersion="" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader" mainMode="1" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true" minVersion="1.4" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <directory location="./jre" />
     </searchSequence>
     <classPath>
-      <archive location="C:/Users/beihai/Desktop/tool_windowsXP3.0/StockDataConvert.jar" failOnError="false" />
+      <archive location="./StockDataConvert.jar" failOnError="false" />
     </classPath>
     <modulePath />
-    <nativeLibraryDirectories />
+    <nativeLibraryDirectories>
+      <directory name="." />
+    </nativeLibraryDirectories>
     <vmOptions />
   </java>
   <includedFiles />
